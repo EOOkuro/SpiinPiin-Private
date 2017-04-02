@@ -1,0 +1,35 @@
+page-getting-started {
+    position: relative;
+    ion-content{  
+    background: url(../assets/bg.jpg); 	
+    background-position: center center;
+    background-repeat:  no-repeat;
+    background-attachment: fixed;
+    background-size:  cover;
+}
+.bottom-buttons{
+    position: absolute; 
+    bottom: 0;
+}
+
+.logo{
+    img{
+        display: block; 
+        width: 40%; 
+        height: auto; 
+        margin-left: auto; 
+        margin-right: auto;
+    }
+}
+.appname{
+    color:#FFFFFF;
+    text-align:center;
+    
+}
+
+.spacer{
+    height: 20px;
+    width: 100%;
+}
+
+}
