@@ -9,7 +9,7 @@
       <div class="spacer"></div>
   <ion-grid class="bottom-buttons">
   <ion-row>
-    <ion-col col-6><button ion-button color="primary" block round>Log In</button></ion-col>
+    <ion-col col-6><button ion-button color="primary" (click)="goToPage('login');" block round>Log In</button></ion-col>
     <ion-col col-6><button ion-button color="primary" (click)="goToPage('gs-slides');" block round>Get Started</button></ion-col>
   </ion-row>
 </ion-grid>
