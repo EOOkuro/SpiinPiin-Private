@@ -16,7 +16,7 @@ goToPage(nextpage){
       case 'gs-slides':
         this.navCtrl.push(GettingStartedSlidesPage);
         break;
-        case 'login':
+        case 'login':        
         this.navCtrl.push(LoginPage);
         break;
     

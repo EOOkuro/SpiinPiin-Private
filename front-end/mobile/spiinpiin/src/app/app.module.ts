@@ -4,6 +4,7 @@ import { MyApp } from './app.component';
 import { GettingStartedPage } from '../pages/getting-started/getting-started';
 import { GettingStartedSlidesPage } from '../pages/getting-started-slides/getting-started-slides';
 import { LoginPage } from '../pages/login/login';
+import { SignupPage } from '../pages/signup/signup';
 
 
 
@@ -16,7 +17,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     GettingStartedPage,
     GettingStartedSlidesPage,
-    LoginPage
+    LoginPage,
+    SignupPage
     
   ],
   imports: [
@@ -27,7 +29,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     GettingStartedPage,
     GettingStartedSlidesPage,
-    LoginPage
+    LoginPage,
+    SignupPage
   ],
   providers: [
     StatusBar,
