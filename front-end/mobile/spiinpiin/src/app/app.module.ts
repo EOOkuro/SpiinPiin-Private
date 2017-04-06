@@ -5,6 +5,9 @@ import { GettingStartedPage } from '../pages/getting-started/getting-started';
 import { GettingStartedSlidesPage } from '../pages/getting-started-slides/getting-started-slides';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
+import { HomePage } from '../pages/home/home';
+import { MenuPage } from '../pages/menu/menu';
+
 
 
 
@@ -18,7 +21,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     GettingStartedPage,
     GettingStartedSlidesPage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    HomePage,
+    MenuPage
     
   ],
   imports: [
@@ -30,7 +35,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     GettingStartedPage,
     GettingStartedSlidesPage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    HomePage,
+    MenuPage
   ],
   providers: [
     StatusBar,

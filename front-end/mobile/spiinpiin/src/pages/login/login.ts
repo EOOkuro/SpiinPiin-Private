@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { SignupPage } from '../signup/signup';
+import { MenuPage } from '../menu/menu';
 
 /*
   Generated class for the Login page.
@@ -20,6 +21,9 @@ export class LoginPage {
     switch (nextpage) {
       case 'signup':
         this.navCtrl.push(SignupPage);
+        break;
+       case 'home':
+        this.navCtrl.setRoot(MenuPage);
         break;
 
     }
