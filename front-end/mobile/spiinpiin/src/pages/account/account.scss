@@ -1,0 +1,42 @@
+page-account {
+    
+    .profile-images{
+       width: 100%;
+       height: 30%;
+       max-height:30%;
+       background: url(../assets/bg.jpg); 	
+       background-size:  cover;
+       margin-left: auto;      
+       margin-right: auto; 
+       padding: 8px;
+       color: #fff;
+        img{ 
+        display: block; 
+        width: 30%; 
+        border-radius: 50%;
+       max-height:100%;
+        margin-left: auto; 
+        margin-right: auto;
+        }
+
+    }
+    ion-col {
+border: think solid black;
+}
+
+    .profile-ribbon{
+        width: 100%;
+        height:8%;
+        background-color: grey;
+    }
+
+
+    .profile-gallery{
+         width: 100%;
+        height:60%;
+       
+       
+    }
+
+    
+}

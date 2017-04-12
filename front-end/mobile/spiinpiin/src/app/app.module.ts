@@ -7,6 +7,8 @@ import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { HomePage } from '../pages/home/home';
 import { MenuPage } from '../pages/menu/menu';
+import { SettingsPage } from '../pages/settings/settings';
+import { AccountPage } from '../pages/account/account';
 
 
 
@@ -23,7 +25,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     LoginPage,
     SignupPage,
     HomePage,
-    MenuPage
+    MenuPage,
+    SettingsPage,
+    AccountPage
     
   ],
   imports: [
@@ -37,7 +41,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     LoginPage,
     SignupPage,
     HomePage,
-    MenuPage
+    MenuPage,
+    SettingsPage,
+    AccountPage
   ],
   providers: [
     StatusBar,

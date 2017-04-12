@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="ios-arrow-back"></ion-icon>
+    </button>
+    <ion-title>John Doe</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="profile-images">
+    <div class="spacer"></div>
+    <img src="assets/user.png">
+    <h3 text-center>John Doe</h3>
+  </div>
+   <div class="profile-ribbon">
+    <ion-grid>
+  <ion-row>
+    <ion-col>1000 Posts</ion-col>
+    <ion-col>2000 Followers</ion-col>
+    <ion-col>4000 Following</ion-col>
+  </ion-row>
+  
+</ion-grid>
+  </div>
+   <div class="profile-gallery">
+    <ion-grid>
+      <ion-row *ngFor="let p of [1,2,3]">
+      <ion-col><img src="assets/user.png"/></ion-col>
+      <ion-col><img src="assets/logo.png"/></ion-col>
+      <ion-col><img src="assets/bg.jpg"/></ion-col>
+      </ion-row>
+      
+    </ion-grid>
+   
+  </div>
+
+</ion-content>
