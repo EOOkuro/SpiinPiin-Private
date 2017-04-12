@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+	<context-root>/spin</context-root>
+	<server-instance>default-server</server-instance>      
+    <virtual-host>default-host</virtual-host>    
+    <!-- 
+    <security-domain>client_cert_auth</security-domain>
+     -->    
+</jboss-web>
