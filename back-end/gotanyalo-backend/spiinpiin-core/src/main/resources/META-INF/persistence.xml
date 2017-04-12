@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+	<persistence-unit name="spiinds">
+		<jta-data-source>java:/SpiinPiinDS</jta-data-source>
+		<properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
+       </properties>
+	</persistence-unit>			
+</persistence>
