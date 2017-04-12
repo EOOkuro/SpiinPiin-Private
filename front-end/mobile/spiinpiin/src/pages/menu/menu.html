@@ -1,18 +1,42 @@
-<ion-menu [content]="mycontent">
-    <ion-content>
+<ion-menu [content]="maincontent">
+    <ion-content padding class="menu-background">
+        <div class="spacer"></div>
+        <div class="logo">
+            <img src="assets/logo.png">
+        </div>
+        <h2 class="appname">Username</h2>
+        <div class="spacer"></div>
         <ion-list>
-             <button ion-item menuClose (click)="openPage(homePage)">
-                Home
+            <button ion-item  menuClose>
+                <ion-icon name="home"  item-left></ion-icon>
+                Channels Feed
+                <div class="active-indicator"></div>
             </button>
-            <button ion-item menuClose (click)="openPage(catsPage)">
-                Cats
+            <button ion-item menuClose>
+                 <ion-icon name="pin" item-left></ion-icon>
+                    SpiinPiin
             </button>
-            <button ion-item menuClose (click)="openPage(dogsPage)">
-                Dogs
+            <button ion-item menuClose>
+                 <ion-icon name="flash" item-left></ion-icon>
+                    Channels
             </button>
+            <button ion-item menuClose>
+                 <ion-icon name="chatboxes" item-left></ion-icon>
+                    Spin Chat
+            </button>
+            <button ion-item menuClose>
+                 <ion-icon name="person" item-left></ion-icon>
+                    Account
+            </button>
+            <button ion-item menuClose>
+                 <ion-icon name="cog" item-left></ion-icon>
+                    Account
+            </button>
+           
         </ion-list>
+         version 2.0.0
     </ion-content>
 
 </ion-menu>
 
-<ion-nav #mycontent [root]="rootPage"></ion-nav>
+<ion-nav #maincontent [root]="rootPage"></ion-nav>
