@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar  color="primary">
+     <button ion-button menuToggle icon-only>
+      <ion-icon name="ios-arrow-back"></ion-icon>
+    </button>
+    <ion-title>Channels </ion-title>
+     <ion-buttons end>
+        <button ion-button  icon-only>
+      <ion-icon name="more"></ion-icon>
+    </button>
+     </ion-buttons>
+   
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-item no-lines>
+    <ion-icon name="person-add" item-left></ion-icon>
+    <ion-icon name="search" item-right></ion-icon>
+  </ion-item>
+<ion-list>
+  <button ion-item *ngFor="let item of items" (click)="viewChannel(item)">
+     <ion-avatar item-left>
+        <img src="assets/user.png">
+      </ion-avatar>
+      <h2>{{ item.username }}</h2>    
+       <p item-right>{{ item.time }}</p>    
+  </button>  
+</ion-list>
+<ion-fab right bottom>
+    <button ion-fab color="primary"><ion-icon name="chatboxes"></ion-icon></button>
+  </ion-fab>
+
+</ion-content>

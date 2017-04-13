@@ -4,6 +4,11 @@
       <ion-icon name="ios-arrow-back"></ion-icon>
     </button>
     <ion-title>John Doe</ion-title>
+    <ion-buttons end>
+        <button ion-button  icon-only>
+      <ion-icon name="more"></ion-icon>
+    </button>
+     </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content>
@@ -15,9 +20,9 @@
    <div class="profile-ribbon">
     <ion-grid>
   <ion-row>
-    <ion-col>1000 Posts</ion-col>
-    <ion-col>2000 Followers</ion-col>
-    <ion-col>4000 Following</ion-col>
+    <ion-col>1000 <br> Posts</ion-col>
+    <ion-col>2000 <br> Followers</ion-col>
+    <ion-col>4000 <br> Following</ion-col>
   </ion-row>
   
 </ion-grid>
@@ -25,9 +30,9 @@
    <div class="profile-gallery">
     <ion-grid>
       <ion-row *ngFor="let p of [1,2,3]">
-      <ion-col><img src="assets/user.png"/></ion-col>
-      <ion-col><img src="assets/logo.png"/></ion-col>
-      <ion-col><img src="assets/bg.jpg"/></ion-col>
+      <ion-col><img src="assets/img.png"/></ion-col>
+      <ion-col><img src="assets/img.png"/></ion-col>
+      <ion-col><img src="assets/img.png"/></ion-col>
       </ion-row>
       
     </ion-grid>

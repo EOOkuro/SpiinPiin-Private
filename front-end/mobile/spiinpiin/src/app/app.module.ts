@@ -9,6 +9,11 @@ import { HomePage } from '../pages/home/home';
 import { MenuPage } from '../pages/menu/menu';
 import { SettingsPage } from '../pages/settings/settings';
 import { AccountPage } from '../pages/account/account';
+import { SpinchatPage } from '../pages/spinchat/spinchat';
+import { SpinchatDetailPage } from '../pages/spinchat-detail/spinchat-detail';
+import { ChannelsPage } from '../pages/channels/channels';
+import { ChannelProfilePage } from '../pages/channel-profile/channel-profile';
+import { SpiinpiinPage } from '../pages/spiinpiin/spiinpiin';
 
 
 
@@ -27,7 +32,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     MenuPage,
     SettingsPage,
-    AccountPage
+    AccountPage,
+    SpinchatPage,
+    SpinchatDetailPage,
+    ChannelProfilePage,
+    ChannelsPage,
+    SpiinpiinPage
     
   ],
   imports: [
@@ -43,7 +53,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     MenuPage,
     SettingsPage,
-    AccountPage
+    AccountPage,
+    SpinchatPage,
+    SpinchatDetailPage,
+    ChannelProfilePage,
+    ChannelsPage,
+    SpiinpiinPage
   ],
   providers: [
     StatusBar,

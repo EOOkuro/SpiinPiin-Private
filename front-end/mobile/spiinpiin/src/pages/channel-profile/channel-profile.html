@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Jane Doe</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+      <ion-icon name="more"></ion-icon>
+    </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <div class="profile-images">
+    <div class="spacer"></div>
+    <img src="assets/user.png">
+    <h3 text-center>Jane Doe <br> <small>Lorem Ipsum ...<br>
+    <ion-badge color="primary">Following</ion-badge></small></h3>
+  </div>  
+    <ion-grid class="profile-ribbon">
+      <ion-row>
+        <ion-col>1000 <br> Posts</ion-col>
+        <ion-col>2000 <br> Followers</ion-col>
+        <ion-col>4000 <br> Following</ion-col>
+      </ion-row>
+    </ion-grid>
+
+     <ion-grid class="profile-toggle-gallery">
+      <ion-row>
+        <ion-col><ion-icon name="menu" color="light"></ion-icon></ion-col>
+        <ion-col><ion-icon name="apps" color="primary"></ion-icon></ion-col>        
+      </ion-row>
+    </ion-grid>
+  
+ 
+  <div class="profile-gallery">
+    <ion-grid>
+      <ion-row *ngFor="let p of [1,2,3]">
+        <ion-col><img src="assets/img.png" /></ion-col>
+        <ion-col><img src="assets/img.png" /></ion-col>
+        <ion-col><img src="assets/img.png" /></ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+  </div>
+
+</ion-content>
