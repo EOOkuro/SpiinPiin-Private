@@ -6,10 +6,10 @@ This guide is focused on building for the android platform.
 
 ###### 1. Install Java
 If you  do not have java installed, open your terminal and run the following commands one at a time:
--`sudo apt-get update`
--`sudo add-apt-repository ppa:webupd8team/java`
--`sudo apt-get update`
--`sudo apt-get install oracle-java8-installer`
+- `sudo apt-get update`
+- `sudo add-apt-repository ppa:webupd8team/java`
+- `sudo apt-get update`
+- `sudo apt-get install oracle-java8-installer`
 
 Reference: [How To Install Java with Apt-Get on Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04)
 
