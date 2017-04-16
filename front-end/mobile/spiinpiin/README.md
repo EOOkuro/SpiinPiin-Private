@@ -61,8 +61,8 @@ Run the following command in your teminal
 ###### 5. Install Git
 If you have no git installed,Run the following commands in your terminal, one at a time:
 
--`sudo apt-get update`
--`sudo apt-get install git`
+- `sudo apt-get update`
+- `sudo apt-get install git`
 
 ###### 6. Cloning the SpiinPiin Project/
 Clone the Spiinpiin project into your workspace directory by running `git clone https://github.com/SpinPiin/SpiinPiin-Private.git`.
