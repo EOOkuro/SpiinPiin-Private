@@ -16,11 +16,20 @@ import { ChannelProfilePage } from '../pages/channel-profile/channel-profile';
 import { SpiinpiinPage } from '../pages/spiinpiin/spiinpiin';
 
 
-
+import { AngularFireModule } from 'angularfire2';
+import { SpiinpiinService } from '../providers/spiinpiin-service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+// AF2 Settings
+export const firebaseConfig = {
+  apiKey: "AIzaSyBn8ytqLK5iAur4duIUBqbNSxDnUCgbYyE",
+  authDomain: "spiinpiinv2.firebaseapp.com",
+  databaseURL: "https://spiinpiinv2.firebaseio.com",
+  projectId: "spiinpiinv2",
+  storageBucket: "spiinpiinv2.appspot.com",
+  messagingSenderId: "1017304184977"
+};
 
 @NgModule({
   declarations: [
@@ -38,10 +47,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ChannelProfilePage,
     ChannelsPage,
     SpiinpiinPage
-    
+
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -63,7 +73,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    SpiinpiinService,
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }
