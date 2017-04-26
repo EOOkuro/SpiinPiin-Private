@@ -18,6 +18,7 @@ import { SpiinpiinPage } from '../pages/spiinpiin/spiinpiin';
 
 import { AngularFireModule } from 'angularfire2';
 import { SpiinpiinService } from '../providers/spiinpiin-service';
+import { Camera } from '@ionic-native/camera';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -51,7 +52,8 @@ export const firebaseConfig = {
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -74,6 +76,7 @@ export const firebaseConfig = {
     StatusBar,
     SplashScreen,
     SpiinpiinService,
+    Camera,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
