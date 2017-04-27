@@ -7,15 +7,15 @@
   <div class="spacer"></div>
   <ion-list>
     <ion-item>
-      <ion-input class="rounded" type="text" placeholder="Username/Email"></ion-input>
+      <ion-input class="rounded" type="email" [(ngModel)]="auth.email" placeholder="Email"></ion-input>
     </ion-item>    
     <ion-item>
-      <ion-input class="rounded" type="password" placeholder="Password"></ion-input>
+      <ion-input class="rounded"  [(ngModel)]="auth.password" type="password" placeholder="Password"></ion-input>
     </ion-item>
   </ion-list>
 
   <div class="spacer"></div>
-  <button ion-button color="primary" (click)="goToPage('home')"  block round>Log In</button>
+  <button ion-button color="primary" (click)="doLogin()"  block round>Log In</button>
   <div class="spacer"></div>
 <p class="appname"> Or Sign In with</p>
   <ion-grid>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { NavController, NavParams,ToastController } from 'ionic-angular';
+import { NavController, NavParams,ToastController,LoadingController } from 'ionic-angular';
 import {AngularFire} from 'angularfire2';
 import { SpiinpiinService } from '../../providers/spiinpiin-service';
 
@@ -11,11 +11,12 @@ import { SpiinpiinService } from '../../providers/spiinpiin-service';
 
 export class SignupPage {
 
-  constructor(private camera: Camera,public navCtrl: NavController, public navParams: NavParams,public af:AngularFire,private toastCtrl: ToastController,private spiinpiinservice:SpiinpiinService  ) {
+  constructor(private camera: Camera,public navCtrl: NavController, public navParams: NavParams
+  ,public loadingCtrl: LoadingController,public af:AngularFire,private toastCtrl: ToastController,private spiinpiinservice:SpiinpiinService  ) {
 
   }
   passwordType:string = "password";
-
+  profile = null;
   auth = {
     fullname:null,
     email:null,
@@ -28,7 +29,14 @@ export class SignupPage {
     showpwd:false,
     photo:"assets/user.png"
   }
-
+ //Create spinner
+    loader:any; 
+ showLoader(){
+    this.loader = this.loadingCtrl.create({
+    content: "Please wait..."
+  });
+  this.loader.present();
+ }
   doSignup(){
     
     if(!this.auth.fullname){
@@ -70,7 +78,36 @@ export class SignupPage {
       return;
     }
 
-    console.log(this.auth);
+   
+//Show Spinner
+this.showLoader();
+    this.af.auth.createUser({
+      email:this.auth.email,
+      password:this.auth.passworda,
+    }).then(
+      (response) =>{        
+        //Remove plaintext passwords
+        delete this.auth.passworda;
+        delete this.auth.passwordb;
+        //Save data online
+        this.profile = this.af.database.list("/profiles");
+        this.profile.push(this.auth);
+        //Hide Loader
+        this.loader.dismiss();
+       //Show Success
+       this.presentToast("Thanks "+this.auth.username+" for registering with us. You can now log in");
+       //Go back
+       this.navCtrl.pop();
+      } 
+    )
+    .catch(
+      (error) => {
+        this.loader.dismiss();
+       this.presentToast(error.message);
+      }
+    );
+
+    
   }
 
 

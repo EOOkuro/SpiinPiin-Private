@@ -1,6 +1,8 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { IonicStorageModule } from '@ionic/storage';
+
 import { GettingStartedPage } from '../pages/getting-started/getting-started';
 import { GettingStartedSlidesPage } from '../pages/getting-started-slides/getting-started-slides';
 import { LoginPage } from '../pages/login/login';
@@ -52,6 +54,7 @@ export const firebaseConfig = {
   ],
   imports: [
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig),
     
   ],
