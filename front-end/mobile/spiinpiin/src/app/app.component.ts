@@ -3,7 +3,8 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { GettingStartedPage } from '../pages/getting-started/getting-started';
+//import { GettingStartedPage } from '../pages/getting-started/getting-started';
+import { GettingStartedSlidesPage } from '../pages/getting-started-slides/getting-started-slides';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { GettingStartedPage } from '../pages/getting-started/getting-started';
   
 })
 export class MyApp {
-  rootPage:any = GettingStartedPage;
+  rootPage:any = GettingStartedSlidesPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

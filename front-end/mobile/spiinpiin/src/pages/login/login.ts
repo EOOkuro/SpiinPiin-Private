@@ -53,6 +53,7 @@ export class LoginPage implements OnInit {
      
    }
   doLogin(){
+    this.navCtrl.setRoot(MenuPage);
      if(!this.auth.email){
       this.presentToast("Enter your email address");
       return;
