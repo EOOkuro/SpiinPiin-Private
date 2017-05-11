@@ -16,6 +16,8 @@ import { SpinchatDetailPage } from '../pages/spinchat-detail/spinchat-detail';
 import { ChannelsPage } from '../pages/channels/channels';
 import { ChannelProfilePage } from '../pages/channel-profile/channel-profile';
 import { SpiinpiinPage } from '../pages/spiinpiin/spiinpiin';
+import { ChannelsfeedPage } from '../pages/channelsfeed/channelsfeed';
+
 
 
 import { AngularFireModule } from 'angularfire2';
@@ -49,7 +51,8 @@ export const firebaseConfig = {
     SpinchatDetailPage,
     ChannelProfilePage,
     ChannelsPage,
-    SpiinpiinPage
+    SpiinpiinPage,
+    ChannelsfeedPage
 
   ],
   imports: [
@@ -73,7 +76,8 @@ export const firebaseConfig = {
     SpinchatDetailPage,
     ChannelProfilePage,
     ChannelsPage,
-    SpiinpiinPage
+    SpiinpiinPage,
+    ChannelsfeedPage
   ],
   providers: [
     StatusBar,
