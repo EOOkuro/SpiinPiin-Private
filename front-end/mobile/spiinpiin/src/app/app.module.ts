@@ -7,6 +7,7 @@ import { GettingStartedPage } from '../pages/getting-started/getting-started';
 import { GettingStartedSlidesPage } from '../pages/getting-started-slides/getting-started-slides';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
+import { SignupPasswordModalPage } from '../pages/signup-password-modal/signup-password-modal';
 import { HomePage } from '../pages/home/home';
 import { MenuPage } from '../pages/menu/menu';
 import { SettingsPage } from '../pages/settings/settings';
@@ -43,6 +44,7 @@ export const firebaseConfig = {
     GettingStartedSlidesPage,
     LoginPage,
     SignupPage,
+    SignupPasswordModalPage,
     HomePage,
     MenuPage,
     SettingsPage,
@@ -68,6 +70,7 @@ export const firebaseConfig = {
     GettingStartedSlidesPage,
     LoginPage,
     SignupPage,
+    SignupPasswordModalPage,
     HomePage,
     MenuPage,
     SettingsPage,

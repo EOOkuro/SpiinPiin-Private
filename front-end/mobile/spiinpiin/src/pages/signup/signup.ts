@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { NavController, NavParams,ToastController,LoadingController } from 'ionic-angular';
+import { NavController, NavParams,ToastController,LoadingController,ModalController } from 'ionic-angular';
 import {AngularFire} from 'angularfire2';
 import { SpiinpiinService } from '../../providers/spiinpiin-service';
-
+import { SignupPasswordModalPage } from '../signup-password-modal/signup-password-modal';
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html'
@@ -11,7 +11,7 @@ import { SpiinpiinService } from '../../providers/spiinpiin-service';
 
 export class SignupPage {
 
-  constructor(private camera: Camera,public navCtrl: NavController, public navParams: NavParams
+  constructor(private camera: Camera,public navCtrl: NavController,public modalCtrl: ModalController, public navParams: NavParams
   ,public loadingCtrl: LoadingController,public af:AngularFire,private toastCtrl: ToastController,private spiinpiinservice:SpiinpiinService  ) {
 
   }
@@ -151,6 +151,20 @@ presentToast(message) {
     }
   }
 
+
+showPasswordModal(){
+    if(!this.auth.email){
+      this.presentToast("Enter your email Address");
+      return;
+    }
+
+    if(!this.spiinpiinservice.validateEmail(this.auth.email)){
+      this.presentToast("The email address is invalid");
+      return;
+    }
+let profileModal = this.modalCtrl.create(SignupPasswordModalPage, { "email": this.auth.email });
+   profileModal.present();
+}
 
 goToSignIn(){
   this.navCtrl.pop();

@@ -11,4 +11,6 @@ export class SpiinpiinService {
     return re.test(email);
   }
 
+  
+
 }
