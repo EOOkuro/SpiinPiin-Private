@@ -22,8 +22,7 @@
     <ion-item>
       <ion-label>Country</ion-label>
       <ion-select [(ngModel)]="auth.country">
-        <ion-option value="KEN">Kenya</ion-option>
-        <ion-option value="USA">United States of America</ion-option>
+        <ion-option *ngFor="let country of countries" >{{country.description}}</ion-option>
       </ion-select>
     </ion-item>
     <div class="input-spacer"></div>
@@ -35,12 +34,11 @@
  
   <span class="text-white"> <ion-checkbox color="primary" [(ngModel)]="auth.accept_tc"></ion-checkbox> I agree to the <a class="tou">Terms of Use</a></span>
   <div class="input-spacer"></div>
-  <!--<button ion-button color="primary" (click)="doSignup()"  block round>Sign Up</button>-->
-<button ion-button color="facebook" block icon-left><ion-icon name="logo-facebook"></ion-icon>&nbsp;Sign up with Facebook</button>
+<button ion-button color="facebook" (click)="doSocialSignup('facebook')" block icon-left><ion-icon name="logo-facebook"></ion-icon>&nbsp;Sign up with Facebook</button>
   <div class="btn-spacer"></div>
-  <button ion-button color="google" block icon-left><ion-icon name="logo-googleplus"></ion-icon>&nbsp; Sign up with Google</button>
+  <button ion-button color="google" (click)="doSocialSignup('google')" block icon-left><ion-icon name="logo-googleplus"></ion-icon>&nbsp; Sign up with Google</button>
   <div class="btn-spacer"></div>
-  <button ion-button color="twitter" block icon-left><ion-icon name="logo-twitter"></ion-icon>&nbsp; Sign up with Twitter</button>
+  <button ion-button color="twitter"  (click)="doSocialSignup('twitter')" block icon-left><ion-icon name="logo-twitter"></ion-icon>&nbsp; Sign up with Twitter</button>
   <div class="btn-spacer"></div>
   <button ion-button color="primary" (click)="showPasswordModal()" block icon-left><ion-icon name="mail"></ion-icon>&nbsp; Sign up with Email & Password</button>
   <div class="input-spacer"></div>

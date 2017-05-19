@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { NavController, NavParams,ToastController,LoadingController,ModalController } from 'ionic-angular';
-import {AngularFire} from 'angularfire2';
+import { NavController, NavParams,LoadingController,ModalController } from 'ionic-angular';
 import { SpiinpiinService } from '../../providers/spiinpiin-service';
 import { SignupPasswordModalPage } from '../signup-password-modal/signup-password-modal';
+import { CountriesObject } from "../../app/object-countries";
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html'
@@ -11,11 +11,11 @@ import { SignupPasswordModalPage } from '../signup-password-modal/signup-passwor
 
 export class SignupPage {
 
-  constructor(private camera: Camera,public navCtrl: NavController,public modalCtrl: ModalController, public navParams: NavParams
-  ,public loadingCtrl: LoadingController,public af:AngularFire,private toastCtrl: ToastController,private spiinpiinservice:SpiinpiinService  ) {
-
+  constructor(private camera: Camera,public navCtrl: NavController,public modalCtrl: ModalController, public navParams: NavParams,private spiinpiinservice:SpiinpiinService  ) {
   }
   passwordType:string = "password";
+  countries:CountriesObject[]=[];
+  loader:any; 
   profile = null;
   auth = {
     fullname:null,
@@ -29,87 +29,84 @@ export class SignupPage {
     showpwd:false,
     photo:"assets/user.png"
   }
- //Create spinner
-    loader:any; 
- showLoader(){
-    this.loader = this.loadingCtrl.create({
-    content: "Please wait..."
-  });
-  this.loader.present();
+
+  ionViewDidLoad() {
+    this.loader = this.spiinpiinservice.showLoader("Please wait ...");
+    this.loader.present();
+    this.spiinpiinservice.getCountries().subscribe((response)=>{
+      if(response.status == 1){
+        this.countries = response.data;
+      }else{
+        this.spiinpiinservice.toastMessage(response.msg);
+      }
+      this.loader.dismiss();      
+    },(error)=>{
+      this.loader.dismiss();
+      this.spiinpiinservice.toastMessage("Could not get countries");
+    })
  }
+
   doSignup(){
     
     if(!this.auth.fullname){
-      this.presentToast("Enter your full name");
+      this.spiinpiinservice.toastMessage("Enter your full name");
       return;
     }
 
      if(!this.auth.email){
-      this.presentToast("Enter your email Address");
+      this.spiinpiinservice.toastMessage("Enter your email Address");
       return;
     }
 
     if(!this.spiinpiinservice.validateEmail(this.auth.email)){
-      this.presentToast("The email address is invalid");
+      this.spiinpiinservice.toastMessage("The email address is invalid");
       return;
     }
     if(!this.auth.country){
-      this.presentToast("Choose your country");
+      this.spiinpiinservice.toastMessage("Choose your country");
       return;
     }
     if(!this.auth.phone){
-      this.presentToast("Enter your phone number");
+      this.spiinpiinservice.toastMessage("Enter your phone number");
       return;
     }
     if(!this.auth.username){
-      this.presentToast("Enter your prefered username");
+      this.spiinpiinservice.toastMessage("Enter your prefered username");
       return;
     }
     if(!this.auth.passworda || !this.auth.passwordb){
-      this.presentToast("Enter your prefered password");
+      this.spiinpiinservice.toastMessage("Enter your prefered password");
       return;
     }
      if(!(this.auth.passworda === this.auth.passwordb) ){
-      this.presentToast("Your Passwords do not Match");
+      this.spiinpiinservice.toastMessage("Your Passwords do not Match");
       return;
     }
     if(!this.auth.accept_tc){
-      this.presentToast("Accept Terms and Conditions to proceed");
+      this.spiinpiinservice.toastMessage("Accept Terms and Conditions to proceed");
       return;
     }
+  //  this.doSocialSignup();
 
-   
-//Show Spinner
-this.showLoader();
-    this.af.auth.createUser({
-      email:this.auth.email,
-      password:this.auth.passworda,
-    }).then(
-      (response) =>{        
-        //Remove plaintext passwords
-        delete this.auth.passworda;
-        delete this.auth.passwordb;
-        //Save data online
-        this.profile = this.af.database.list("/profiles");
-        this.profile.push(this.auth);
-        //Hide Loader
-        this.loader.dismiss();
-       //Show Success
-       this.presentToast("Thanks "+this.auth.username+" for registering with us. You can now log in");
-       //Go back
-       this.navCtrl.pop();
-      } 
-    )
-    .catch(
-      (error) => {
-        this.loader.dismiss();
-       this.presentToast(error.message);
-      }
-    );
+}
 
-    
-  }
-
+doSocialSignup(method){
+switch (method) {
+      case "twitter":
+        //doTwitterSignUp();
+        break;
+     case "facebook":
+        //doFacebookSignUp();
+        break;
+     case "google":
+       // doGoogleSignUp();
+        break;
+      default:
+      this.showPasswordModal();
+        break;
+    }
+}
+  
 
 uploadPicture(){
   let camOptions: CameraOptions = {
@@ -128,14 +125,7 @@ uploadPicture(){
 
 }
 
-presentToast(message) {
-  let toast = this.toastCtrl.create({
-    message: message,
-    duration: 2000,
-    position: 'top'
-  });
-  toast.present();
-}
+
 
   toggleShowPassword(){
     switch (this.auth.showpwd) {
@@ -154,12 +144,12 @@ presentToast(message) {
 
 showPasswordModal(){
     if(!this.auth.email){
-      this.presentToast("Enter your email Address");
+      this.spiinpiinservice.toastMessage("Enter your email Address");
       return;
     }
 
     if(!this.spiinpiinservice.validateEmail(this.auth.email)){
-      this.presentToast("The email address is invalid");
+      this.spiinpiinservice.toastMessage("The email address is invalid");
       return;
     }
 let profileModal = this.modalCtrl.create(SignupPasswordModalPage, { "email": this.auth.email });

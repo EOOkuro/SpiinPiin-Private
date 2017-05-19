@@ -21,21 +21,13 @@ import { ChannelsfeedPage } from '../pages/channelsfeed/channelsfeed';
 
 
 
-import { AngularFireModule } from 'angularfire2';
+
 import { SpiinpiinService } from '../providers/spiinpiin-service';
 import { Camera } from '@ionic-native/camera';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-// AF2 Settings
-export const firebaseConfig = {
-  apiKey: "AIzaSyBn8ytqLK5iAur4duIUBqbNSxDnUCgbYyE",
-  authDomain: "spiinpiinv2.firebaseapp.com",
-  databaseURL: "https://spiinpiinv2.firebaseio.com",
-  projectId: "spiinpiinv2",
-  storageBucket: "spiinpiinv2.appspot.com",
-  messagingSenderId: "1017304184977"
-};
+
 
 @NgModule({
   declarations: [
@@ -59,9 +51,7 @@ export const firebaseConfig = {
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot(),
-    AngularFireModule.initializeApp(firebaseConfig),
-    
+    IonicStorageModule.forRoot(),    
   ],
   bootstrap: [IonicApp],
   entryComponents: [

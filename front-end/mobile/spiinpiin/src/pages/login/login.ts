@@ -1,7 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { NavController, NavParams,ToastController,LoadingController } from 'ionic-angular';
-import {AngularFire,FirebaseAuthState} from 'angularfire2';
 import { SignupPage } from '../signup/signup';
 import { MenuPage } from '../menu/menu';
 import { SpiinpiinService } from '../../providers/spiinpiin-service';
@@ -30,28 +29,7 @@ export class LoginPage implements OnInit {
  }
 
   constructor(public navCtrl: NavController,public storage: Storage,private spiinpiinservice:SpiinpiinService,
-   public navParams: NavParams,public loadingCtrl: LoadingController,public af:AngularFire,private toastCtrl: ToastController,) {
-     this.af.auth.subscribe(
-     (user:FirebaseAuthState) =>{
-       if(user){
-
-          this.storage.ready().then(() => {
-
-       // set a key/value
-       this.storage.set('name', 'Max');
-
-       // Or to get a key/value pair
-       this.storage.get('name').then((val) => {
-         console.log('Your age is', val);
-       })
-     });
-         
-        this.navCtrl.setRoot(MenuPage);
-       }       
-     }
-   );
-     
-   }
+   public navParams: NavParams,public loadingCtrl: LoadingController,private toastCtrl: ToastController) {}
   doLogin(){
     this.navCtrl.setRoot(MenuPage);
      if(!this.auth.email){
@@ -70,25 +48,7 @@ export class LoginPage implements OnInit {
     }
     this.showLoader();
 
-    this.af.auth.login({email:this.auth.email,password:this.auth.password}).then(
-      response=>{
-        //Query Profile,save locally       
-
-
-        //dismiss loader
-        this.loader.dismiss();
-        //go home
-         this.navCtrl.setRoot(MenuPage);
       }
-    ).catch(error =>{
-       this.loader.dismiss();
-       console.log(error);
-       this.presentToast(error.message);
-    });
-
-
-
-  }
 
   presentToast(message) {
   let toast = this.toastCtrl.create({
