@@ -2,7 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
-
+import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { GettingStartedPage } from '../pages/getting-started/getting-started';
 import { GettingStartedSlidesPage } from '../pages/getting-started-slides/getting-started-slides';
 import { LoginPage } from '../pages/login/login';
@@ -18,15 +18,15 @@ import { ChannelsPage } from '../pages/channels/channels';
 import { ChannelProfilePage } from '../pages/channel-profile/channel-profile';
 import { SpiinpiinPage } from '../pages/spiinpiin/spiinpiin';
 import { ChannelsfeedPage } from '../pages/channelsfeed/channelsfeed';
-
-
-
-
 import { SpiinpiinService } from '../providers/spiinpiin-service';
 import { Camera } from '@ionic-native/camera';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+const cloudSettings: CloudSettings = {
+  'core': {
+    'app_id': '21d6f65d'
+  }
+};
 
 
 @NgModule({
@@ -51,6 +51,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     IonicModule.forRoot(MyApp),
+    CloudModule.forRoot(cloudSettings),
     IonicStorageModule.forRoot(),    
   ],
   bootstrap: [IonicApp],

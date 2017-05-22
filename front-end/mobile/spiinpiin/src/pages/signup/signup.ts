@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { NavController, NavParams,LoadingController,ModalController } from 'ionic-angular';
+import { Auth, User } from '@ionic/cloud-angular';
+
 import { SpiinpiinService } from '../../providers/spiinpiin-service';
 import { SignupPasswordModalPage } from '../signup-password-modal/signup-password-modal';
 import { CountriesObject } from "../../app/object-countries";
@@ -11,14 +13,15 @@ import { CountriesObject } from "../../app/object-countries";
 
 export class SignupPage {
 
-  constructor(private camera: Camera,public navCtrl: NavController,public modalCtrl: ModalController, public navParams: NavParams,private spiinpiinservice:SpiinpiinService  ) {
+  constructor(public f_auth: Auth, public user: User,private camera: Camera,public navCtrl: NavController,public modalCtrl: ModalController, public navParams: NavParams,private spiinpiinservice:SpiinpiinService  ) {
   }
   passwordType:string = "password";
   countries:CountriesObject[]=[];
   loader:any; 
   profile = null;
   auth = {
-    fullname:null,
+    fname:null,
+    lname:null,
     email:null,
     country:null,
     phone:null,
@@ -46,12 +49,16 @@ export class SignupPage {
     })
  }
 
-  doSignup(){
-    
-    if(!this.auth.fullname){
-      this.spiinpiinservice.toastMessage("Enter your full name");
+  doSocialSignup(method){
+    if(!this.auth.fname){
+      this.spiinpiinservice.toastMessage("Enter your First name");
       return;
     }
+     if(!this.auth.lname){
+      this.spiinpiinservice.toastMessage("Enter your surname");
+      return;
+    }
+
 
      if(!this.auth.email){
       this.spiinpiinservice.toastMessage("Enter your email Address");
@@ -70,7 +77,7 @@ export class SignupPage {
       this.spiinpiinservice.toastMessage("Enter your phone number");
       return;
     }
-    if(!this.auth.username){
+   /* if(!this.auth.username){
       this.spiinpiinservice.toastMessage("Enter your prefered username");
       return;
     }
@@ -81,32 +88,50 @@ export class SignupPage {
      if(!(this.auth.passworda === this.auth.passwordb) ){
       this.spiinpiinservice.toastMessage("Your Passwords do not Match");
       return;
-    }
+    }*/
     if(!this.auth.accept_tc){
       this.spiinpiinservice.toastMessage("Accept Terms and Conditions to proceed");
       return;
-    }
-  //  this.doSocialSignup();
+    } 
 
-}
-
-doSocialSignup(method){
-switch (method) {
+  switch (method) {
       case "twitter":
-        //doTwitterSignUp();
+        this.doTwitterSignUp();
         break;
      case "facebook":
         //doFacebookSignUp();
+        console.log(method);
         break;
      case "google":
        // doGoogleSignUp();
+       console.log(method);
         break;
       default:
       this.showPasswordModal();
         break;
     }
+
 }
-  
+
+doTwitterSignUp(){
+  this.f_auth.login('twitter').then(
+    (data)=>{
+      console.log(data);       
+      this.spiinpiinservice.saveToLocalStorage('twitter',data);
+      this.sendToSpiinpiinServer('twitter');
+    },
+    (err)=>{
+      console.log("ERROR");
+      console.log(err);
+    }
+  );
+}
+
+  sendToSpiinpiinServer(provider){
+       this.loader = this.spiinpiinservice.showLoader("Please wait ...");
+       this.loader.present();  
+
+  }
 
 uploadPicture(){
   let camOptions: CameraOptions = {

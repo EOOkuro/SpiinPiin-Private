@@ -28,6 +28,16 @@ export class SpiinpiinService {
     return this.http.post(SpiinpiinConfig.API_ENDPOINT + uri,data,options).map((response) => response.json());
   }
 
+   saveToLocalStorage(key,value){
+    let data =  JSON.stringify(value);
+    this.storage.set(key,data);
+   }
+
+  getFromLocalStorage(key){
+    return this.storage.get(key);
+  }
+
+
 
   toastMessage(message){
    let toast = this.toastCtrl.create({
