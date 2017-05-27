@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http,RequestOptions,Headers } from '@angular/http';
 import { LoadingController,ToastController } from 'ionic-angular';
+
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 
@@ -17,7 +18,8 @@ export class SpiinpiinService {
   }
 
   getCountries(){
-     return this.http.get(SpiinpiinConfig.API_ENDPOINT+"/lcountry").map((response) => response.json());
+     //return this.http.get(SpiinpiinConfig.API_ENDPOINT+"/lcountry").map((response) => response.json());
+     return this.http.get('dummy/lcountry.json').map((response) => response.json());
   }
 
    callPostApi(uri,data) {

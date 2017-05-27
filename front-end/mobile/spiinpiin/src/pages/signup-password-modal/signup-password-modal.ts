@@ -37,5 +37,16 @@ passwordType:string = "password;"
 
 
 }
-
+ /* if(!this.auth.username){
+      this.spiinpiinservice.toastMessage("Enter your prefered username");
+      return;
+    }
+    if(!this.auth.passworda || !this.auth.passwordb){
+      this.spiinpiinservice.toastMessage("Enter your prefered password");
+      return;
+    }
+     if(!(this.auth.passworda === this.auth.passwordb) ){
+      this.spiinpiinservice.toastMessage("Your Passwords do not Match");
+      return;
+    }*/
 

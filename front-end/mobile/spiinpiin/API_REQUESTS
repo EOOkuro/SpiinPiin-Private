@@ -1,6 +1,0 @@
-1. List of country objects
-		[{
-			id:1,
-			phonecode:"+254",
-			name:"Kenya"
-		}]

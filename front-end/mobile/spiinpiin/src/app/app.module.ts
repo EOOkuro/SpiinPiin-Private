@@ -1,5 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { BrowserModule } from '@angular/platform-browser';
+import {HttpModule} from '@angular/http'
 import { MyApp } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
@@ -29,6 +31,7 @@ const cloudSettings: CloudSettings = {
 };
 
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -52,6 +55,8 @@ const cloudSettings: CloudSettings = {
   imports: [
     IonicModule.forRoot(MyApp),
     CloudModule.forRoot(cloudSettings),
+    HttpModule,
+    BrowserModule,
     IonicStorageModule.forRoot(),    
   ],
   bootstrap: [IonicApp],
