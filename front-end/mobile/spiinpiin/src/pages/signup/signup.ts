@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { NavController, NavParams,LoadingController,ModalController } from 'ionic-angular';
 import {Auth, User, UserDetails, IDetailedError } from '@ionic/cloud-angular';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { SpiinpiinService } from '../../providers/spiinpiin-service';
 import { SignupPasswordModalPage } from '../signup-password-modal/signup-password-modal';
@@ -96,17 +97,14 @@ export class SignupPage {
       this.spiinpiinservice.toastMessage("Accept Terms and Conditions to proceed");
       return;
     } 
-    this.spiinpiinservice.getFromLocalStorage('authdata').then((data)=>{
-      console.log(JSON.parse(data));
-    });
+ 
   switch (method) {
       case "twitter":
-        this.f_auth.login('twitter').then(()=>{
-          alert(this.user.social.twitter.uid);
-          let authId = this.user.social.twitter.uid;
+      //this.sendToSpiinpiinServer('twitter',1234567890);
+       /* this.f_auth.login('twitter').then(()=>{          
           this.spiinpiinservice.saveToLocalStorage('authObject',this.user.social.twitter);
-          this.sendToSpiinpiinServer('twitter',authId);
-        });
+          this.sendToSpiinpiinServer('twitter',this.user.social.twitter.uid);
+        });*/
         break;
      case "facebook":
         //doFacebookSignUp();
@@ -124,17 +122,24 @@ export class SignupPage {
 }
 
   sendToSpiinpiinServer(provider,fuid){
-       this.loader = this.spiinpiinservice.showLoader("Please wait ...");
-       this.loader.present();
+      /* this.loader = this.spiinpiinservice.showLoader("Please wait ...");
+       this.loader.present();*/
        let data = {
-         'fname':this.auth.fname,
-         'lname':this.auth.lname,
-         'email':this.auth.email,
-         'countryCode':this.auth.country,
-         'phone':this.auth.phone,
-         'provider':provider,
-         'fuid':fuid
-       };  
+         'firstName':this.spiinpiinservice.encodeData(this.auth.fname),
+         'lastName':this.spiinpiinservice.encodeData(this.auth.lname),
+         'femail':this.spiinpiinservice.encodeData(this.auth.email),
+         'countryCode':this.spiinpiinservice.encodeData(this.auth.country),
+         'phone':this.spiinpiinservice.encodeData(this.auth.phone),
+         'provider':this.spiinpiinservice.encodeData(provider),
+         'fuid':this.spiinpiinservice.encodeData(fuid),
+         'photo':this.spiinpiinservice.encodeData(this.auth.photo)
+       }; 
+
+       this.spiinpiinservice.callPostApi("/membership/registreuser",data).subscribe((response)=>{
+        console.log(response);
+       },(error)=>{
+        console.log(error);
+       });
 
        
       
@@ -185,6 +190,21 @@ showPasswordModal(){
       return;
     }
 let profileModal = this.modalCtrl.create(SignupPasswordModalPage, { "email": this.auth.email });
+  profileModal.onDidDismiss(data => {
+     if(data){
+        this.loader = this.spiinpiinservice.showLoader("Please wait ...");
+       this.loader.present()
+       let details: UserDetails = {'email': this.auth.email, 'password': data,'name':this.auth.fname +" "+this.auth.lname};
+       this.f_auth.signup(details).then((data) => {         
+         this.spiinpiinservice.saveToLocalStorage('authObject',this.user.details);
+
+        this.loader.dismiss();      },
+       (err: IDetailedError<string[]>) => {         
+         this.spiinpiinservice.toastMessage(err.details[0]);
+         this.loader.dismiss();
+        });     
+     }
+   });
    profileModal.present();
 }
 

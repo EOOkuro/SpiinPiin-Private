@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {HttpModule} from '@angular/http'
 import { MyApp } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { GettingStartedPage } from '../pages/getting-started/getting-started';
 import { GettingStartedSlidesPage } from '../pages/getting-started-slides/getting-started-slides';
@@ -24,9 +25,18 @@ import { SpiinpiinService } from '../providers/spiinpiin-service';
 import { Camera } from '@ionic-native/camera';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import {
+ GoogleMaps,
+ GoogleMap,
+ GoogleMapsEvent,
+ LatLng,
+ CameraPosition,
+ MarkerOptions,
+ Marker
+} from '@ionic-native/google-maps';
 const cloudSettings: CloudSettings = {
   'core': {
-    'app_id': '21d6f65d'
+    'app_id': 'bdbcd2dd'
   }
 };
 
@@ -83,6 +93,9 @@ const cloudSettings: CloudSettings = {
     SplashScreen,
     SpiinpiinService,
     Camera,
+    InAppBrowser, 
+    GoogleMaps,
+    
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

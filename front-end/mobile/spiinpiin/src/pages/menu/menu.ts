@@ -8,6 +8,7 @@ import { SpinchatPage } from '../spinchat/spinchat';
 import { ChannelsPage } from '../channels/channels';
 import { SpiinpiinPage } from '../spiinpiin/spiinpiin';
 
+
 @Component({
   selector: 'page-menu',
   templateUrl: 'menu.html'

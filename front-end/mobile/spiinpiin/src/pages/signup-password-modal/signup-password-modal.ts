@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams,ViewController } from 'ionic-angular';
+import { SpiinpiinService } from '../../providers/spiinpiin-service';
 
 
 @Component({
@@ -7,16 +8,15 @@ import { NavController, NavParams,ViewController } from 'ionic-angular';
   templateUrl: 'signup-password-modal.html'
 })
 export class SignupPasswordModalPage {
-email:string;
+email:string;passworda:string;passwordb:string;
 showpwd:boolean = false;
-passwordType:string = "password;"
-  constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) {
-  this.email = this.navParams.get('email')
+passwordType:string = "password";
+  constructor(private spiinpiinservice:SpiinpiinService,public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) {
+  this.email = this.navParams.get('email');
+  this.passwordType = "password";
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPasswordModalPage');
-  }
+ 
   toggleShowPassword(){
     switch (this.showpwd) {
       case true:
@@ -35,18 +35,22 @@ passwordType:string = "password;"
      this.viewCtrl.dismiss();
   }
 
-
-}
- /* if(!this.auth.username){
-      this.spiinpiinservice.toastMessage("Enter your prefered username");
-      return;
-    }
-    if(!this.auth.passworda || !this.auth.passwordb){
+  setPassword(){
+    if(!this.passworda || !this.passwordb){
       this.spiinpiinservice.toastMessage("Enter your prefered password");
       return;
     }
-     if(!(this.auth.passworda === this.auth.passwordb) ){
+    if((this.passworda).length <8 || (this.passwordb).length < 8){
+      this.spiinpiinservice.toastMessage("Password needs to be greater than 8 characters");
+      return;
+    }
+     if(!(this.passworda === this.passwordb) ){
       this.spiinpiinservice.toastMessage("Your Passwords do not Match");
       return;
-    }*/
+    }
 
+    this.viewCtrl.dismiss(this.passworda);
+  }
+
+
+}
