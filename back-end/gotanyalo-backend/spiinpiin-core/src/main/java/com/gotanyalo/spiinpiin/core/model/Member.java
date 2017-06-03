@@ -19,8 +19,6 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.gotanyalo.spiinpiin.core.data.Gender;
-import com.gotanyalo.spiinpiin.core.data.MemberModule;
-import com.gotanyalo.spiinpiin.core.data.MemberType;
 
 /**
  * @author otkoth
@@ -43,9 +41,7 @@ public class Member implements Serializable {
 	private String middleName;
 	
 	private String lastName;
-		
-	private MemberModule module;
-		
+			
 	private byte[] photo;
 	
 	private Gender gender;
@@ -53,9 +49,7 @@ public class Member implements Serializable {
 	private String displayName;
 	
 	private Date dob;
-	
-	private MemberType mtype;
-	
+		
 	private String fuid;
 	
 	private String femail;
@@ -64,6 +58,22 @@ public class Member implements Serializable {
 	
 	private String idob;
 	
+	private String email;
+	
+	@Column(name="spin_memb_email", 
+			insertable=true,
+			nullable=true,
+			unique=true,
+			updatable=true,
+			length=100)
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Transient		
 	public String getIdob() {
 		return idob;
@@ -114,21 +124,7 @@ public class Member implements Serializable {
 	public void setProvider(String provider) {
 		this.provider = provider;
 	}
-
-	@Enumerated(EnumType.STRING)
-	@Column(name="spin_memb_stype", 
-			insertable=true,
-			nullable=true,
-			unique=false,
-			updatable=true)
-	public MemberType getMtype() {
-		return mtype;
-	}
-
-	public void setMtype(MemberType mtype) {
-		this.mtype = mtype;
-	}
-
+	
 	@Temporal(TemporalType.DATE)
 	@Column(name="spin_memb_dob", 
 			insertable=true,
@@ -242,20 +238,5 @@ public class Member implements Serializable {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	@Enumerated(EnumType.STRING)
-	@Column(name="spin_memb_module", 
-			insertable=true, 
-			nullable=false,
-			unique=false,
-			updatable=true,
-			length=20)
-	public MemberModule getModule() {
-		return module;
-	}
-
-	public void setModule(MemberModule module) {
-		this.module = module;
 	}
 }

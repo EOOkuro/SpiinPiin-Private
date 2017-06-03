@@ -291,9 +291,6 @@ public class SpiinPiinManagementUser extends SpiinPiinManagementAlerts implement
 		} catch (MemberNotFoundException e) {
 			// DO NOTHING
 		}
-								
-		mbr.setModule(MemberModule.CLIENT);
-		mbr.setMtype(MemberType.CLIENT);
 		
 		if (isValid(mbr.getFirstName())){
 			mbr.setFirstName(strVal(mbr.getFirstName()));

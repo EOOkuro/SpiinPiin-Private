@@ -63,14 +63,12 @@ public class TSession implements Serializable {
 	public TSession(
 			String userName,
 			String userId,
-			MemberModule role,
 			String clientIp,
 			boolean isonpremise,
 			boolean libmember){
 		
 		this.userName = userName;
 		this.userId = userId;
-		this.role = role;
 		this.clientIp = clientIp;
 		this.isonpremise = isonpremise;		
 	}

@@ -70,7 +70,7 @@ public class SpiinPiinManagementBean
 		
 		Member mbr = this.getUserByFederatedData(usr.getUid());			
 		session = new TSession(mbr.getFemail(), mbr.getId(),
-				mbr.getModule(), null, false, false);
+				null, false, false);
 		
 		return this.fillTSession(mbr, session, usr.getModuleId(), usr.getDomain());
 	}

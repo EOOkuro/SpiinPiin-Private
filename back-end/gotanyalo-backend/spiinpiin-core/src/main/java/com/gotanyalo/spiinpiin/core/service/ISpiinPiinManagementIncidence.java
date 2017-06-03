@@ -8,6 +8,6 @@ package com.gotanyalo.spiinpiin.core.service;
  *
  */
 public interface ISpiinPiinManagementIncidence 
-	extends ISpiinPiinManagementInsurance {
+	extends ISpiinPiinManagementUser {
 		
 }

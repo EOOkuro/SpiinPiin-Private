@@ -5,22 +5,16 @@ package com.gotanyalo.spiinpiin.core.rest;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import com.gotanyalo.spiinpiin.core.data.CountryCode;
-import com.gotanyalo.spiinpiin.core.data.TSession;
-import com.gotanyalo.spiinpiin.core.exceptions.SpiinPiinBaseException;
+import com.gotanyalo.spiinpiin.core.data.TResult;
 import com.gotanyalo.spiinpiin.core.model.Country;
 import com.gotanyalo.spiinpiin.core.model.Language;
 import com.gotanyalo.spiinpiin.core.model.Occupation;
@@ -48,25 +42,25 @@ public class BaseService implements Serializable {
 	@GET
 	@Path("/lcountry")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Country> listCountry() {
-		return insMgt.listCountry();
+	public TResult<List<Country>> listCountry() {
+		return new TResult<List<Country>>(1, insMgt.listCountry(), null);
 	}
 	
 	@GET
 	@Path("/llanguage")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Language> listLanguage() {
-		return insMgt.listLanguage();
+	public TResult<List<Language>> listLanguage() {
+		return new TResult<List<Language>>(1, insMgt.listLanguage(), null);
 	}
 	
 	@GET
 	@Path("/loccupation")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Occupation> listOccupation() {
-		return insMgt.listOccupation();
+	public TResult<List<Occupation>> listOccupation() {
+		return new TResult<List<Occupation>>(1, insMgt.listOccupation(), null);
 	}
 		
-	private <T> T excecute(String sessionKey, IJxRsExecute run){			
+	/*private <T> T excecute(String sessionKey, IJxRsExecute run){			
 		try {			
 			TSession session = this.insMgt.getSession(sessionKey);
 			
@@ -86,6 +80,6 @@ public class BaseService implements Serializable {
 			
 			throw new WebApplicationException(response);
 		}
-	}	
+	}*/	
 	
 }
