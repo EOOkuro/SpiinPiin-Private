@@ -4,7 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { SpiinpiinService } from '../providers/spiinpiin-service';
 
-
+import { HomePage } from "../pages/home/home";
 //import { GettingStartedPage } from '../pages/getting-started/getting-started';
 import { GettingStartedSlidesPage } from '../pages/getting-started-slides/getting-started-slides';
 
@@ -14,7 +14,8 @@ import { GettingStartedSlidesPage } from '../pages/getting-started-slides/gettin
   
 })
 export class MyApp {  
-  rootPage:any = GettingStartedSlidesPage;
+  rootPage:any = HomePage;
+  //rootPage:any = GettingStartedSlidesPage;
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private spiinpiinservice:SpiinpiinService) {
     platform.ready().then(() => {    
       statusBar.styleDefault();
