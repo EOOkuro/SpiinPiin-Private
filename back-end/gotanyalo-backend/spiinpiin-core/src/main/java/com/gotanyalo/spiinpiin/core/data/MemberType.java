@@ -8,11 +8,7 @@ package com.gotanyalo.spiinpiin.core.data;
  *
  */
 public enum MemberType {
-
-	AGENT,
-	
-	INSURANCE,
-	
+		
 	CLIENT,
 	
 	NA

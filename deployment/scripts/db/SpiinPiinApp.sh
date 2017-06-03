@@ -641,6 +641,7 @@ ExecuteSqlTableCommand "CREATE TABLE IF NOT EXISTS Member
 	spin_memb_mname VARCHAR(15),
 	spin_memb_lname VARCHAR(15),	
 	spin_memb_photo LONGBLOB,
+	spin_memb_email VARCHAR(100),
 	spin_memb_dob DATE,
 	PRIMARY KEY (spin_memb_mbrid),
 	UNIQUE (spin_memb_fid, spin_memb_provider)) ENGINE=INNODB;"
@@ -652,7 +653,7 @@ ExecuteSqlTableCommand "CREATE TABLE IF NOT EXISTS Contact
 	spin_membc_mid CHAR(36) NOT NULL,
 	spin_membc_name VARCHAR(50) NOT NULL,
 	spin_membc_country VARCHAR(4) NOT NULL,	
-	spin_membc_postaladdr VARCHAR(200) NOT NULL,
+	spin_membc_postaladdr VARCHAR(200),
 	spin_membc_phyloc VARCHAR(200),
 	spin_membc_homephone VARCHAR(20),
 	spin_membc_mobile VARCHAR(20),
@@ -662,3 +663,18 @@ ExecuteSqlTableCommand "CREATE TABLE IF NOT EXISTS Contact
 		REFERENCES Member(spin_memb_mbrid) ON UPDATE CASCADE ON DELETE RESTRICT,
 	FOREIGN KEY (spin_membc_country) 
 		REFERENCES Country(spin_country_code) ON UPDATE CASCADE ON DELETE RESTRICT) ENGINE=INNODB;"
+
+#	Create Article table and the related structures
+printf "Creating Article ... \n"
+ExecuteSqlTableCommand "CREATE TABLE IF NOT EXISTS Article 
+	(spin_article_id INT NOT NULL AUTO_INCREMENT,
+	spin_article_mid CHAR(36) NOT NULL,
+	spin_article_title VARCHAR(200) NOT NULL,
+	spin_article_detail VARCHAR(4000) NOT NULL,	
+	spin_article_date DATE NOT NULL,
+	spin_article_img LONGBLOB,
+	spin_article_lat FLOAT(12,2),
+	spin_article_long FLOAT(12,2),
+	PRIMARY KEY (spin_article_id),
+	FOREIGN KEY (spin_article_mid) 
+		REFERENCES Member(spin_memb_mbrid) ON UPDATE CASCADE ON DELETE RESTRICT) ENGINE=INNODB;"

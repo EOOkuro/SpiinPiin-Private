@@ -9,12 +9,11 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,11 +37,6 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
-import org.apache.commons.io.IOUtils;
-import org.jboss.resteasy.plugins.providers.multipart.InputPart;
-import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import com.gotanyalo.spiinpiin.core.data.FederatedUser;
 import com.gotanyalo.spiinpiin.core.data.TSession;
@@ -53,6 +47,8 @@ import com.gotanyalo.spiinpiin.core.model.Contact;
 import com.gotanyalo.spiinpiin.core.model.Member;
 import com.gotanyalo.spiinpiin.core.data.Img;
 import com.gotanyalo.spiinpiin.core.data.ImgFormat;
+import com.gotanyalo.spiinpiin.core.data.TMember;
+import com.gotanyalo.spiinpiin.core.data.TResult;
 import com.gotanyalo.spiinpiin.core.service.ISpiinPiinManagementLocal;
 
 /**
@@ -76,7 +72,7 @@ public class MembershipService implements Serializable {
 	
 	private DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		
-	private TSession auth(
+	private TResult<TSession> auth(
 			FederatedUser usr,
 			String moduleId,
 			HttpServletRequest request){
@@ -86,18 +82,18 @@ public class MembershipService implements Serializable {
 			usr.setModuleId(moduleId);
 			TSession session = this.insMgt.authMember(usr);
 			
-			return this.auth(session, request);
+			return new TResult<TSession>(8, this.auth(session, request), null);
 			
 		} catch (Exception e) {
 			logger.log(Level.WARNING, e.getMessage(), e);
-			TSession fail = new TSession(null, null, null, null, false, false);
+			TSession fail = new TSession(null, null, null, false, false);
 			fail.setStatus(-5);
 			
-			return fail;			
+			return new TResult<TSession>(8, fail, "Authentication failed!");			
 		}
 	}
 	
-	private TSession auth(
+	private TResult<TSession> auth(
 			String key,
 			String moduleId,
 			HttpServletRequest request){
@@ -106,14 +102,14 @@ public class MembershipService implements Serializable {
 			TSession session = this.insMgt.getSession(key);
 			session = this.insMgt.fillTSession(session, moduleId, this.getServerName(request));
 			
-			return this.auth(session, request);
+			return new TResult<TSession>(8, this.auth(session, request), null);
 			
 		} catch (Exception e) {
 			logger.log(Level.WARNING, e.getMessage(), e);
-			TSession fail = new TSession(null, null, null, null, false, false);
+			TSession fail = new TSession(null, null, null, false, false);
 			fail.setStatus(-5);
 			
-			return fail;			
+			return new TResult<TSession>(-5, fail, "Authentication failed!");			
 		}
 	}
 		
@@ -153,7 +149,7 @@ public class MembershipService implements Serializable {
 			
 		} catch (Exception e) {
 			logger.log(Level.WARNING, e.getMessage(), e);
-			TSession fail = new TSession(null, null, null, null, false, false);
+			TSession fail = new TSession(null, null, null, false, false);
 			fail.setStatus(-5);
 			
 			return fail;			
@@ -163,7 +159,7 @@ public class MembershipService implements Serializable {
 	@GET
     @Path("/authwithkey")
     @Produces(MediaType.APPLICATION_JSON)
-	public TSession authenticate(
+	public TResult<TSession> authenticate(
 			@HeaderParam("ModuleID") String moduleId,
 			@HeaderParam("AuthorizationKey") String sessionKey,
 			@Context HttpServletRequest request){		
@@ -174,7 +170,7 @@ public class MembershipService implements Serializable {
     @Path("/authfedusr/{fuid}/{email}/{isverified}/{provider}")
     @Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public TSession authenticateFederated(
+	public TResult<TSession> authenticateFederated(
 			@PathParam("fuid") String fuid,
 			@PathParam("email") String email,
 			@PathParam("isverified") boolean isverified,
@@ -232,8 +228,11 @@ public class MembershipService implements Serializable {
 	@GET
     @Path("/glogo")
     @Produces(MediaType.APPLICATION_JSON)
-	public Img getLogo(@Context HttpServletRequest request){		
-		return new Img(this.insMgt.getLogo(this.getServerName(request)));	
+	public TResult<String> getLogo(@Context HttpServletRequest request){		
+		return new TResult<String>(
+				1, 
+				this.insMgt.getLogo(this.getServerName(request)), 
+				null);
 	}
 		
 	private String getServerName(HttpServletRequest request){
@@ -265,101 +264,134 @@ public class MembershipService implements Serializable {
 	@GET
     @Path("/logout")
     @Produces(MediaType.APPLICATION_JSON)
-	public boolean logout(@HeaderParam("AuthorizationKey") String sessionKey){
+	public TResult<Boolean> logout(@HeaderParam("AuthorizationKey") String sessionKey){
 		try {		
 			this.insMgt.removeSession(sessionKey);			
 						
-			return true;
+			return new TResult<Boolean>(1, true, null);
 			
 		} catch (Exception e) {
 			logger.log(Level.WARNING, e.getMessage(), e);
 			
-			return false;			
+			return new TResult<Boolean>(-1, false, e.getMessage());			
 		}
 	}
 			
 	@POST
-    @Path("/registreuser")
+    @Path("/registeruser")
     @Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public boolean registerUser(
-			final Member mbr,
+	public TResult<Boolean> registerUser(
+			final TMember obj,
 			@Context HttpServletRequest request){		
 		try {
-			try {
-				mbr.setDob(df.parse(mbr.getIdob()));
-			} catch (ParseException e) {
-				logger.log(Level.SEVERE, e.getMessage(), e);
+			Member mbr = new Member();
+			// TODO Add email to the mix.
+			mbr.setDisplayName(strVal(obj.getName()));
+			mbr.setFemail(strVal(obj.getFemail()));
+			mbr.setFuid(strVal(obj.getFuid()));
+			if (isStringValid(obj.getPhoto())){
+				mbr.setPhoto(obj.getPhoto().getBytes("UTF-8"));
 			}
 			
+			String[] names = crunchName(mbr.getDisplayName());
+			if (names.length > 0){
+				mbr.setFirstName(names[0]);
+			}
+			
+			if (names.length > 2){
+				mbr.setLastName(names[2]);
+				mbr.setMiddleName(names[1]);
+			} else if (names.length > 1){
+				mbr.setLastName(names[1]);
+			}
+						
+			mbr.setProvider(strVal(obj.getProvider()));
+			
+			//try {
+				//mbr.setDob(df.parse(mbr.getIdob()));
+			//} catch (ParseException e) {
+				//logger.log(Level.SEVERE, e.getMessage(), e);
+			//}
+			
 			insMgt.registerMember(mbr);
-			return true;
-		} catch (SpiinPiinBaseException e) {
+			
+			// Now do contact.
+			Contact cont = new Contact();
+			cont.setCountry(strVal(obj.getCountryCode()));
+			//cont.setMemberId(memberId);
+			cont.setMobile(strVal(obj.getPhone()));
+			cont.setName(mbr.getDisplayName());
+			
+			// TODO Add Contact logic to the mix.
+			//insMgt.addContact(session, obj);
+			
+			return new TResult<Boolean>(1, true, null);
+		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage(), e);
-			return false;
+			return new TResult<Boolean>(-1, false, e.getMessage());
 		}		
+	}
+	
+	private String[] crunchName(String name){
+		if (this.isStringValid(name)){
+			String[] vals = name.split(" ");
+			if (vals != null && vals.length > 0){
+				String[] sanitized = new String[vals.length];
+				int i = -1;
+				for (String v : vals) {
+					if (this.isStringValid(v)){						
+						i++;
+						sanitized[i] = v;						
+					}
+				}
+				
+				if (i >= 0){
+					String[] rst = new String[i + 1];
+					int j = 0;
+					for (String s : rst) {
+						rst[j] = s;
+						if (j == i){
+							break;
+						}
+						
+						j++;
+					}
+					
+					return rst;
+				}
+			}
+		}
+		
+		return null;
 	}
 		
 	@POST
-    @Path("/umemberphoto/{id}")
+    @Path("/umemberphoto")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	@Produces(MediaType.TEXT_PLAIN)
-	public Response setUserPhoto(
-			final MultipartFormDataInput io,
-			@PathParam("id") final String id,
+	public TResult<Boolean> setUserPhoto(
+			final Img img,
 			@HeaderParam("AuthorizationKey") String sessionKey){
 		return this.excecute(sessionKey, new IJxRsExecute() {
 			
 			@SuppressWarnings("unchecked")
 			@Override
-			public Response run(TSession session) throws SpiinPiinBaseException {
+			public TResult<Boolean> run(TSession session) 
+					throws SpiinPiinBaseException {
 				
-				try {			
-					if (id == null || id.trim().equals("")){
-						throw new InvalidParameterException("id is either null or empty.");
-					}
-								
-					Map<String, List<InputPart>> formParts = io.getFormDataMap();
-											
-					List<InputPart> parts = formParts.get("file");
-								
-					byte[] imgbyte = null;
-					boolean issuccess = false;
-					
-					ImgFormat imgFormat = null;
-					
-					if (parts != null && parts.size() > 0){
-						for (InputPart in : parts) {					
-							try {						
-								InputStream istream = in.getBody(InputStream.class, null);
-								imgbyte = IOUtils.toByteArray(istream);
-								imgFormat = getImgFormat(imgbyte);
-								issuccess = true;
-							} catch (IOException e) {
-								logger.log(Level.SEVERE, e.getMessage(), e);
-								return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Error:" + e.getMessage()).build();
-							}
-						}
-					}	
-								
-					if (imgbyte != null && issuccess && imgFormat != null){
+				try {		
+							
+					if (img != null && isStringValid(img.getImg())){
+						byte[] imgbyte = img.getImg().getBytes("UTF-8");
 						insMgt.setPhoto(session, imgbyte);
 						
-						if (imgFormat == ImgFormat.JPEG){
-							return Response.status(200).entity("data:image/jpeg;base64," + 
-									org.apache.commons.codec.binary.Base64.encodeBase64String(imgbyte)).build();
-						} else if (imgFormat == ImgFormat.PNG){
-							return Response.status(200).entity("data:image/png;base64," + 
-									org.apache.commons.codec.binary.Base64.encodeBase64String(imgbyte)).build();
-						} else {
-							return Response.status(Status.NOT_ACCEPTABLE).entity(
-									"Image type {" + imgFormat + "} not supported.").build();
-						}
+						return new TResult<Boolean>(1, true, null);
 					}
-										
-					return Response.status(Status.NO_CONTENT).entity("No image uploaded").build();
 					
-				} catch (SpiinPiinBaseException e) {
+					return new TResult<Boolean>(-1, false, "No image provided");
+					
+				} catch (Exception e) {
 					logger.log(Level.SEVERE, e.getMessage(), e);
 					throw new WebApplicationException(Response.Status.INTERNAL_SERVER_ERROR);
 				}
@@ -402,41 +434,44 @@ public class MembershipService implements Serializable {
 	@GET
     @Path("/ucontact")
     @Produces(MediaType.APPLICATION_JSON)
-	public boolean updateContact(
+	public TResult<Boolean> updateContact(
 			final Contact obj,
 			@HeaderParam("AuthorizationKey") String sessionKey){
 		return this.excecute(sessionKey, new IJxRsExecute() {
 			
 			@SuppressWarnings("unchecked")
 			@Override
-			public Boolean run(TSession session) throws SpiinPiinBaseException {
+			public TResult<Boolean> run(TSession session) throws SpiinPiinBaseException {
 								
 				insMgt.updateContact(session, obj);
 				
-				return true;
+				return new TResult<Boolean>(1, true, null);
 			}
-		});	
+		});
 	}
-		
-	@GET
+	
+	@POST
     @Path("/umember")
     @Produces(MediaType.APPLICATION_JSON)
-	public boolean updateMember(
-			final Member mbr,
+	public TResult<Boolean> updateMember(
+			final TMember mbr,
 			@HeaderParam("AuthorizationKey") String sessionKey){
 		return this.excecute(sessionKey, new IJxRsExecute() {
 			
 			@SuppressWarnings("unchecked")
 			@Override
-			public Boolean run(TSession session) throws SpiinPiinBaseException {
-				insMgt.updateMember(session, mbr);
+			public TResult<Boolean> run(TSession session) throws SpiinPiinBaseException {
+				Member obj = new Member();
+				//obj.setDisplayName(displayName);
 				
-				return true;
+				insMgt.updateMember(session, obj);
+				
+				return new TResult<Boolean>(1, true, null);
 			}
 		});
 	}
 	
-	private String validateStr(String val) 
+	private String validateStr(String val)
 			throws InvalidParameterException{
 		
 		if (val == null || val.trim().equalsIgnoreCase("null")){
@@ -450,5 +485,5 @@ public class MembershipService implements Serializable {
 					"val = {" + val + "}, cannot be decoded.");
 		}
 	}
-	
+
 }

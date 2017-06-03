@@ -66,13 +66,13 @@ protected String separator = System.getProperty("file.separator");
 			SpiinPiinManagementBase.class.getClass().getName());
 	
 	protected final String TemplateReport = String.format(
-			"%s%sMcFish%sreports",
+			"%s%sSpiin%sreports",
 			System.getProperty("jboss.server.data.dir"),
 			this.separator,
 			this.separator);
 	
 	protected final String TempPath = String.format(
-			"%s%sMcFish%s",
+			"%s%sSpiin%s",
 			System.getProperty("jboss.server.data.dir"),
 			this.separator,
 			this.separator);
@@ -92,13 +92,13 @@ protected String separator = System.getProperty("file.separator");
 			this.separator);
 	
 	private final String ConfigFile = String.format(
-			"%s%sMcFish%sconf.properties",
+			"%s%sSpiin%sconf.properties",
 			System.getProperty("jboss.server.data.dir"),
 			this.separator,
 			this.separator);
 
 	protected final String ResourceFolder = String.format(
-			"%s%sMcFish%s",
+			"%s%sSpiin%s",
 			System.getProperty("jboss.server.data.dir"),
 			this.separator,
 			this.separator);
