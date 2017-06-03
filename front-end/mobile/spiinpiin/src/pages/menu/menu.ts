@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
-/*
-  Generated class for the Menu page.
+import { SettingsPage } from '../settings/settings';
+import { AccountPage } from '../account/account';
+import { SpinchatPage } from '../spinchat/spinchat';
+import { ChannelsPage } from '../channels/channels';
+import { SpiinpiinPage } from '../spiinpiin/spiinpiin';
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+
 @Component({
   selector: 'page-menu',
   templateUrl: 'menu.html'
@@ -18,8 +19,29 @@ export class MenuPage {
     this.rootPage =  HomePage;
   }
 
-   openPage(p) {
-    this.rootPage = p;
+   openPage(page) {
+     switch (page) {
+       case 'settings':
+         this.navCtrl.push(SettingsPage);
+         break;
+         case 'account':
+         this.navCtrl.push(AccountPage);
+         break;
+         case 'spinchat':
+         this.navCtrl.push(SpinchatPage);
+         break;
+         case 'channels':
+         this.navCtrl.push(ChannelsPage);
+         break;
+         case 'spiinpiin':
+         this.navCtrl.push(SpiinpiinPage);
+         break;
+     
+     
+       default:
+         break;
+     }
+    
   }
 
   

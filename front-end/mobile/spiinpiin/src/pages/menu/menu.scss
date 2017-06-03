@@ -3,26 +3,22 @@ page-menu {
          background: transparent !important;
     }
     .menu-background{
-         background-color: #989898;
+         background-color: #5B7495;
          .item{
-         background-color: #989898;
-          .active-indicator{
-        width:5px;
-        height: 100%;
-        float: right;
-        background-color: #000000;
-    }
-        }
+            background-color: #5B7495;
+            font-weight: 700;
+
+         }
     }
    
-.logo{
-    img{
-        display: block; 
-        width: 40%; 
+.logo{   
+       img{ display: block; 
+        width: 50%; 
+        border-radius: 50%;
         height: auto; 
         margin-left: auto; 
-        margin-right: auto;
-    }
+        margin-right: auto;}
+    
 }
 .appname{
     color:#FFFFFF;

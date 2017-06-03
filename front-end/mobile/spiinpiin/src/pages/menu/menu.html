@@ -1,10 +1,10 @@
 <ion-menu [content]="maincontent">
-    <ion-content padding class="menu-background">
+    <ion-content class="menu-background">
         <div class="spacer"></div>
         <div class="logo">
-            <img src="assets/logo.png">
+            <img src="assets/user.png">
         </div>
-        <h2 class="appname">Username</h2>
+        <h2 class="appname">John Doe</h2>
         <div class="spacer"></div>
         <ion-list>
             <button ion-item  menuClose>
@@ -12,31 +12,28 @@
                 Channels Feed
                 <div class="active-indicator"></div>
             </button>
-            <button ion-item menuClose>
+            <button ion-item menuClose (click)="openPage('spiinpiin')" >
                  <ion-icon name="pin" item-left></ion-icon>
                     SpiinPiin
             </button>
-            <button ion-item menuClose>
+            <button ion-item menuClose (click)="openPage('channels')">
                  <ion-icon name="flash" item-left></ion-icon>
                     Channels
             </button>
-            <button ion-item menuClose>
+            <button ion-item menuClose (click)="openPage('spinchat')">
                  <ion-icon name="chatboxes" item-left></ion-icon>
                     Spin Chat
             </button>
-            <button ion-item menuClose>
+            <button ion-item menuClose (click)="openPage('account')">
                  <ion-icon name="person" item-left></ion-icon>
                     Account
             </button>
-            <button ion-item menuClose>
-                 <ion-icon name="cog" item-left></ion-icon>
-                    Account
-            </button>
-           
-        </ion-list>
-         version 2.0.0
+            <button ion-item menuClose (click)="openPage('settings')">
+                 <ion-icon name="cog" item-left ></ion-icon>
+                    Settings
+            </button>           
+        </ion-list>        
     </ion-content>
-
 </ion-menu>
 
 <ion-nav #maincontent [root]="rootPage"></ion-nav>
