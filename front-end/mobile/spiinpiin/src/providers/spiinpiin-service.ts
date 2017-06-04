@@ -47,6 +47,7 @@ export class SpiinpiinService {
    saveToLocalStorage(key,value){
     let data =  JSON.stringify(value);
     this.storage.set(key,data);
+    console.log("Saved "+key+"=>"+value);
    }
 
   getFromLocalStorage(key){
