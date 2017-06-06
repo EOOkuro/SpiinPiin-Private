@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-navbar  color="primary">
-     <button ion-button menuToggle icon-only>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle icon-only>
       <ion-icon name='menu'></ion-icon>
     </button>
     <ion-title>Channels Feed</ion-title>
@@ -8,6 +8,37 @@
 
 </ion-header>
 <ion-content>
-  <!--<img src="assets/map-placeholder.png">-->
-  <div #map id="map" style="height:100%;"></div>
+  <div #map id="map" style="height:50%;"></div>
+  <ion-item text-wrap>   
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>
+          <img src="assets/user.png" style="width: 100% !important;height: auto !important;">
+        </ion-col>
+        <ion-col col-6>
+           <h2 style="padding-top:10px">Richard Omoka<br><small>Mumias,Kenya</small></h2>           
+        </ion-col>
+        <ion-col col-3>
+          <p style="padding-top:15px">2:42 PM</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-11>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+          <!--{{ longString | limitTo: 20 }}<span ng-if="longString.length > 20">&hellip;</span>-->
+        </ion-col>
+        <ion-col col-1><h1><ion-icon ios="ios-star" md="md-star" color="primary"></ion-icon></h1></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+        <img src="assets/article.png" style="padding-top:2px;width: 100% !important;height: auto !important;">
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-4 class="btns"><small><ion-icon ios="ios-heart" md="md-heart" color="primary"></ion-icon> 100 Likes</small></ion-col>
+        <ion-col col-4 class="btns"><small><ion-icon ios="ios-text" md="md-text" color="primary"></ion-icon> 100 Comments</small></ion-col>
+        <ion-col col-4 class="btns"><small><ion-icon ios="ios-thumbs-down" md="md-thumbs-down" color="primary"></ion-icon> 100 Dislikes</small></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-item>
 </ion-content>

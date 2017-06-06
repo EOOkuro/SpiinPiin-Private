@@ -7,6 +7,7 @@ import { AccountPage } from '../account/account';
 import { SpinchatPage } from '../spinchat/spinchat';
 import { ChannelsPage } from '../channels/channels';
 import { SpiinpiinPage } from '../spiinpiin/spiinpiin';
+import {GoogleMaps} from '@ionic-native/google-maps';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { SpiinpiinPage } from '../spiinpiin/spiinpiin';
 })
 export class MenuPage {
   rootPage:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private googleMaps: GoogleMaps,public navCtrl: NavController, public navParams: NavParams) {
     this.rootPage =  HomePage;
   }
 
