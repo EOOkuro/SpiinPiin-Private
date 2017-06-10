@@ -2,6 +2,10 @@
 cordova plugin add cordova-plugin-googlemaps --variable API_KEY_FOR_ANDROID="AIzaSyAvz0XtVg-3iUG0432SmtwGbMhFLGXXIF4" --variable API_KEY_FOR_IOS="AIzaSyDjbCg_mzG6_FJry6mmUaOnJpD-EoITuLI"
 keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
 
+FACEBOOK KEY HASH
+keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore | openssl sha1 -binary | openssl base64
+cordova plugin add cordova-plugin-facebook4 --save --variable APP_ID="551227025265595" --variable APP_NAME="Spiinpiin"
+ 
 
 MongoDB;
 mongo
@@ -10,3 +14,6 @@ use user_management
 show collections
 db.getCollection("users").find().pretty()
 db.getCollection("users").remove({})
+
+sudo service mongod start
+tail -f /var/log/mongodb/mongod.log

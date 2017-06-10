@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
-import { Auth, User, UserDetails, IDetailedError } from '@ionic/cloud-angular';
+import { Auth, User, UserDetails, IDetailedError,FacebookAuth } from '@ionic/cloud-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 import { SpiinpiinService } from '../../providers/spiinpiin-service';
@@ -15,7 +15,7 @@ import { MenuPage } from '../menu/menu';
 
 export class SignupPage {
 
-  constructor(public f_auth: Auth, public user: User, private camera: Camera, public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private spiinpiinservice: SpiinpiinService) {
+  constructor(public facebookAuth: FacebookAuth,public f_auth: Auth, public user: User, private camera: Camera, public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private spiinpiinservice: SpiinpiinService) {
   }
   passwordType: string = "password";
   countries: CountriesObject[] = [];
@@ -93,16 +93,26 @@ export class SignupPage {
         });
         break;
       case "facebook":
-        //doFacebookSignUp();
+        this.facebookAuth.login().then(()=>{
+          let fb = {
+            uid:this.user.social.facebook.uid,
+            email:this.user.social.facebook.data.email,
+            full_name:this.user.social.facebook.data.full_name
+          }
+          this.spiinpiinservice.saveToLocalStorage('authObject', fb);
+          this.sendToSpiinpiinServer('facebook', this.user.social.facebook.uid);
+
+        });
         console.log(method);
         break;
       case "google":
         // doGoogleSignUp();
         console.log(method);
         break;
-      default:
-        this.showPasswordModal();
-        break;
+      case "password":
+         this.showPasswordModal();
+         break;
+     
     }
 
   }

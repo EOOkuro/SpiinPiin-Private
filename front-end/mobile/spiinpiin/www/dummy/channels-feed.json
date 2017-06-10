@@ -8,5 +8,7 @@
     "article_photo":"assets/article.png",
     "likes":20,
     "comments":40,
-    "dislikes":12
+    "dislikes":12,
+    "latitude":"22.55",
+    "longitude":"22.55"
 }

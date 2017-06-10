@@ -18,7 +18,7 @@ export class MyApp {
   loader:any;
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private spiinpiinservice:SpiinpiinService) {
     platform.ready().then(() => {
-      this.spiinpiinservice.showLoader("Please Wait...");
+      this.loader = this.spiinpiinservice.showLoader("Please Wait...");
       this.loader.present();   
       this.spiinpiinservice.getFromLocalStorage('sessionkey').then((sesskey)=>{
         
