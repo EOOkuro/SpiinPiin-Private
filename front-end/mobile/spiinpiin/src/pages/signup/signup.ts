@@ -210,10 +210,7 @@ export class SignupPage {
             this.spiinpiinservice.toastMessage(JSON.stringify(err));
             this.loader.dismiss();
           }
-          /* (err: IDetailedError<string[]>) => {         
-           this.spiinpiinservice.toastMessage(err.details[0]);
-           this.loader.dismiss();
-          }*/
+         
         );
       }
     });
@@ -227,11 +224,3 @@ export class SignupPage {
 
 
 }
-/*{
-  "status": 1,
-  "data": {
-    "key": "59339bfc8a498f16c127a657",
-    "name": "Richard Omoka"
-  },
-  "msg": "Success"
-}*/

@@ -1,22 +1,49 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { SpiinpiinService } from '../../providers/spiinpiin-service';
 
-/*
-  Generated class for the Spiinpiin page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-spiinpiin',
   templateUrl: 'spiinpiin.html'
 })
 export class SpiinpiinPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+loader:any;
+countries;
+  constructor(public navCtrl: NavController, public navParams: NavParams,private spiinpiinservice: SpiinpiinService) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SpiinpiinPage');
+    
   }
-
+postData(){
+      this.loader = this.spiinpiinservice.showLoader("Please wait ...");
+    this.loader.present();
+    this.spiinpiinservice.getCountries().subscribe((response) => {
+      if (response.status == 1) {
+        this.countries = response.data;
+      } else {
+        this.spiinpiinservice.toastMessage(response.msg);
+      }
+      this.loader.dismiss();
+    }, (error) => {
+      this.loader.dismiss();
+      this.spiinpiinservice.toastMessage("Error Initializing page");
+    })
 }
+}
+
+
+/*postData(){
+      this.loader = this.spiinpiinservice.showLoader("Please wait ...");
+    this.loader.present();
+    this.spiinpiinservice.getCountries().subscribe((response) => {
+      if (response.status == 1) {
+        this.countries = response.data;
+      } else {
+        this.spiinpiinservice.toastMessage(response.msg);
+      }
+      this.loader.dismiss();
+    }, (error) => {
+      this.loader.dismiss();
+      this.spiinpiinservice.toastMessage("Error Initializing page");
+    })
+}*/
