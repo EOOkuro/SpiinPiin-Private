@@ -3,6 +3,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpModule} from '@angular/http'
 import { MyApp } from './app.component';
+import { GooglePlus } from '@ionic-native/google-plus';
 import { IonicStorageModule } from '@ionic/storage';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
@@ -36,7 +37,7 @@ import {
 } from '@ionic-native/google-maps';
 const cloudSettings: CloudSettings = {
   'core': {
-    'app_id': 'bdbcd2dd'
+    'app_id': '0bb9190c'
   }
 };
 
@@ -95,7 +96,7 @@ const cloudSettings: CloudSettings = {
     Camera,
     InAppBrowser, 
     GoogleMaps,
-    
+    GooglePlus,    
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

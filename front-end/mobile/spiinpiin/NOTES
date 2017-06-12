@@ -5,7 +5,12 @@ keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -sto
 FACEBOOK KEY HASH
 keytool -exportcert -alias androiddebugkey -keystore ~/.android/debug.keystore | openssl sha1 -binary | openssl base64
 cordova plugin add cordova-plugin-facebook4 --save --variable APP_ID="551227025265595" --variable APP_NAME="Spiinpiin"
- 
+
+
+GOOGKE PLUS
+keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android
+ionic cordova plugin add cordova-plugin-googleplus --variable REVERSED_CLIENT_ID=myreversedclientid
+npm install --save @ionic-native/google-plus
 
 MongoDB;
 mongo

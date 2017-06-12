@@ -3,7 +3,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { NavController, NavParams, LoadingController, ModalController } from 'ionic-angular';
 import { Auth, User, UserDetails, IDetailedError,FacebookAuth } from '@ionic/cloud-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
-
+import { GooglePlus } from '@ionic-native/google-plus';
 import { SpiinpiinService } from '../../providers/spiinpiin-service';
 import { SignupPasswordModalPage } from '../signup-password-modal/signup-password-modal';
 import { CountriesObject } from "../../app/object-countries";
@@ -15,7 +15,7 @@ import { MenuPage } from '../menu/menu';
 
 export class SignupPage {
 
-  constructor(public facebookAuth: FacebookAuth,public f_auth: Auth, public user: User, private camera: Camera, public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private spiinpiinservice: SpiinpiinService) {
+  constructor(public facebookAuth: FacebookAuth,private googlePlus: GooglePlus,public f_auth: Auth, public user: User, private camera: Camera, public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private spiinpiinservice: SpiinpiinService) {
   }
   passwordType: string = "password";
   countries: CountriesObject[] = [];
@@ -89,7 +89,7 @@ export class SignupPage {
       case "twitter":
         this.f_auth.login('twitter').then(() => {
           this.spiinpiinservice.saveToLocalStorage('authObject', this.user.social.twitter);
-          this.sendToSpiinpiinServer('twitter', this.user.social.twitter.uid);
+          this.sendToSpiinpiinServer(method, this.user.social.twitter.uid);
         });
         break;
       case "facebook":
@@ -100,13 +100,16 @@ export class SignupPage {
             full_name:this.user.social.facebook.data.full_name
           }
           this.spiinpiinservice.saveToLocalStorage('authObject', fb);
-          this.sendToSpiinpiinServer('facebook', this.user.social.facebook.uid);
+          this.sendToSpiinpiinServer(method, this.user.social.facebook.uid);
 
         });
-        console.log(method);
         break;
       case "google":
-        // doGoogleSignUp();
+         this.googlePlus.login({'webClientId': '302166569553-4n0j1ulrpikg8828ahmk9q6k6c97tvk7.apps.googleusercontent.com'}).then((res) => {
+          this.sendToSpiinpiinServer(method,res.userId);    
+        }, (err) => {
+          this.spiinpiinservice.toastMessage(JSON.stringify(err));
+        });
         console.log(method);
         break;
       case "password":
