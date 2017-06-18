@@ -7,7 +7,7 @@ import { SpiinpiinService } from '../providers/spiinpiin-service';
 import { HomePage } from "../pages/home/home";
 import { MenuPage } from '../pages/menu/menu';
 import { GettingStartedSlidesPage } from '../pages/getting-started-slides/getting-started-slides';
-
+import { SpiinpiinPage } from "../pages/spiinpiin/spiinpiin";
 
 @Component({
   templateUrl: 'app.html'
@@ -27,7 +27,10 @@ export class MyApp {
           this.rootPage = MenuPage;
         }else{
           this.loader.dismiss();
-          this.rootPage = GettingStartedSlidesPage;
+          //this.rootPage = GettingStartedSlidesPage;
+          //this.rootPage = SpiinpiinPage;
+          this.rootPage = MenuPage;
+          
         }
       });
       statusBar.styleDefault();

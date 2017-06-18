@@ -22,3 +22,29 @@ db.getCollection("users").remove({})
 
 sudo service mongod start
 tail -f /var/log/mongodb/mongod.log
+
+http://192.168.0.103:8080/users/api/register
+{
+"_id":"1234567890",
+"name":"Richard Omoka",
+"fedemail":"richard.omoka@gmail.com",
+"email":"richard.omoka@gmail.com",
+"phone":"0717225954",
+"provider":"twitter",
+"primaryfedid":"1234567890",
+"fedid":"1234567890",
+"photo":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQYV2NgYAAAAAMAAWgmWQ0AAAAASUVORK5CYII=",
+"gender":"MALE",
+"verified":false,
+"dob":"2017-06-04"
+}
+
+http://192.168.0.103:8085/feeds/api/feed
+{   "_id
+	"poster":"poster",
+	"summary":"summary",
+	"article":"article",
+	"image":"image",
+	"thumbnail":"thumbnail",
+	"posted":"posted"
+}

@@ -88,6 +88,7 @@
         <variable name="APP_ID" value="551227025265595" />
         <variable name="APP_NAME" value="Spiinpiin" />
     </plugin>
+    <plugin name="cordova-plugin-geolocation" spec="^2.4.3" />
     <plugin name="cordova-plugin-googlemaps" spec="^1.4.0">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyAvz0XtVg-3iUG0432SmtwGbMhFLGXXIF4" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyDjbCg_mzG6_FJry6mmUaOnJpD-EoITuLI" />

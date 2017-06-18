@@ -1,64 +1,76 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import {
-  GoogleMaps,
-  GoogleMap,
-  GoogleMapsEvent,
-  LatLng,
-  CameraPosition,
-  MarkerOptions,
-  Marker
-} from '@ionic-native/google-maps';
+import { NavController, NavParams, Platform } from 'ionic-angular';
+import { SpiinpiinService } from '../../providers/spiinpiin-service';
+import { Geolocation } from '@ionic-native/geolocation';
+import { GoogleMaps, GoogleMap, GoogleMapsEvent, LatLng, CameraPosition, MarkerOptions, Marker } from '@ionic-native/google-maps';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
-// create LatLng object
-    myCoords: LatLng;
-  constructor(private googleMaps: GoogleMaps, public navCtrl: NavController, public navParams: NavParams) { }
-  // Load map only after view is initialized
-  ngAfterViewInit() {
-    this.loadMap();
+export class HomePage {  
+  map: GoogleMap;
+  myCoords:LatLng;
+  loader:any;
+  constructor(private geolocation: Geolocation, private spiinpiinservice: SpiinpiinService, private platform: Platform, private googleMaps: GoogleMaps, public navCtrl: NavController, public navParams: NavParams) { 
+    platform.ready().then(()=>{
+      this.loader = this.spiinpiinservice.showLoader("Initializing feed ...");
+      this.loader.present();
+       this.geolocation.getCurrentPosition({
+      maximumAge: 3000,
+      timeout: 5000,
+      enableHighAccuracy: true
+    }).then((resp) => {
+      this.loader.dismiss();
+      this.myCoords = new LatLng(resp.coords.latitude, resp.coords.longitude);
+       this.loadMap();
+    },(err)=>{
+      this.loader.dismiss();
+      alert(err);
+    });
+    });
   }
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomePage');
-  }
-
+  
   loadMap() {
-    // create a new map by passing HTMLElement
-    let element: HTMLElement = document.getElementById('map');
-    let map: GoogleMap = this.googleMaps.create(element);
-    map.one(GoogleMapsEvent.MAP_READY).then(
-      () => {
-        map.getMyLocation().then((location) => {
-          this.myCoords =  new LatLng(location.latLng.lat, location.latLng.lng);
-          map.addMarker(markerOptions)
-            .then((marker: Marker) => {
-              marker.showInfoWindow();
+    this.map = new GoogleMap('map', {
+      'backgroundColor': 'white',
+      'controls': {
+        'compass': true,
+        'myLocationButton': true,
+        'indoorPicker': true,
+        'zoom': true
+      },
+      'gestures': {
+        'scroll': true,
+        'tilt': true,
+        'rotate': true,
+        'zoom': true
+      },
+      'camera': {
+        'latLng': this.myCoords,
+        'tilt': 30,
+        'zoom': 15,
+        'bearing': 50
+      }
+    });
 
-            })
-        });
-      });
-    
-    /// create CameraPosition
-    let position: CameraPosition = {
-      target: this.myCoords,
-      zoom: 18,
-      tilt: 30
-    };
+    this.map.on(GoogleMapsEvent.MAP_READY).subscribe(() => {
+        let position: CameraPosition = {
+          target: this.myCoords,
+          zoom: 18,
+          tilt: 30
+        };
+        this.map.moveCamera(position);
+        let markerOptions:MarkerOptions = {
+          position: this.myCoords
+        //  title: ''
+        };
 
-    // move the map's camera to position
-    map.moveCamera(position);
-
-    // create new marker
-    let markerOptions: MarkerOptions = {
-      position: this.myCoords
-    };
-
-
-
+        this.map.addMarker(markerOptions)
+          .then((marker: Marker) => {
+            marker.showInfoWindow();
+          });
+    });
 
   }
 

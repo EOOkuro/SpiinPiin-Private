@@ -1,18 +1,25 @@
 <ion-header>
-  <ion-navbar  color="primary">
-     <button ion-button menuToggle icon-only>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle icon-only>
       <ion-icon name='menu'></ion-icon>
     </button>
     <ion-title>Spiin Piin</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content>
-  <img src="assets/map-placeholder.png">  
-  <p text-center><ion-icon  class="larger circular-icon" name="camera"></ion-icon>
-  <br>Tap to upload image or Video</p>
-  <ion-item no-lines> 
-    <ion-icon name="chatboxes" class="circular-icon" item-left></ion-icon>
-         <ion-input type="text"  name="title" placeholder="Piin Something to the world"></ion-input>
-         <ion-icon name="send" class="circular-icon" item-right (click)="postData()"></ion-icon>
-  </ion-item>
+<ion-content style="background-color:#cccccc;">
+  <div #spiinmap id="spiinmap" style="height:50%;"></div>
+  <button clear ion-button full icon-only>
+            <ion-icon name="camera"></ion-icon>            
+          </button>
+  <p style="text-align:center; font-size: 0.1em"> Tap camera to upload image or Video</p>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-10>
+        <ion-textarea autoresize type="text" placeholder="Piin Something to the world"></ion-textarea>
+      </ion-col>
+      <ion-col col-2>
+        <button ion-button clear item-right (click)="postData()" icon-only><ion-icon name="send"></ion-icon></button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

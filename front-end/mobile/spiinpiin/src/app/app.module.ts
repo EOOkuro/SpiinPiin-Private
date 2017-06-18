@@ -26,15 +26,9 @@ import { SpiinpiinService } from '../providers/spiinpiin-service';
 import { Camera } from '@ionic-native/camera';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import {
- GoogleMaps,
- GoogleMap,
- GoogleMapsEvent,
- LatLng,
- CameraPosition,
- MarkerOptions,
- Marker
-} from '@ionic-native/google-maps';
+import { Autoresize } from "./autoresize";
+import { Geolocation } from '@ionic-native/geolocation';
+import { GoogleMaps} from '@ionic-native/google-maps';
 const cloudSettings: CloudSettings = {
   'core': {
     'app_id': '0bb9190c'
@@ -60,7 +54,8 @@ const cloudSettings: CloudSettings = {
     ChannelProfilePage,
     ChannelsPage,
     SpiinpiinPage,
-    ChannelsfeedPage
+    ChannelsfeedPage,
+    Autoresize
 
   ],
   imports: [
@@ -96,8 +91,10 @@ const cloudSettings: CloudSettings = {
     Camera,
     InAppBrowser, 
     GoogleMaps,
-    GooglePlus,    
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    GooglePlus,  
+    Geolocation,  
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    
   ]
 })
 export class AppModule { }
