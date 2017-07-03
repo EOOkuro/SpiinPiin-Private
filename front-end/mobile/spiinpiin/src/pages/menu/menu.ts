@@ -8,6 +8,7 @@ import { SpinchatPage } from '../spinchat/spinchat';
 import { ChannelsPage } from '../channels/channels';
 import { SpiinpiinPage } from '../spiinpiin/spiinpiin';
 import {GoogleMaps} from '@ionic-native/google-maps';
+import { SpiinpiinService } from '../../providers/spiinpiin-service';
 
 
 @Component({
@@ -16,8 +17,20 @@ import {GoogleMaps} from '@ionic-native/google-maps';
 })
 export class MenuPage {
   rootPage:any;
-  constructor(private googleMaps: GoogleMaps,public navCtrl: NavController, public navParams: NavParams) {
+  username:string =null;
+  profilepic:string = null;
+  constructor(private googleMaps: GoogleMaps,public navCtrl: NavController, public navParams: NavParams, private spiinpiinservice: SpiinpiinService) {
     this.rootPage =  HomePage;
+  }
+
+  ionViewDidLoad(){
+    
+     this.spiinpiinservice.getFromLocalStorage("profilepic").then((data)=>{
+      this.profilepic = JSON.parse(data);
+    });
+    this.spiinpiinservice.getFromLocalStorage("name").then((data)=>{
+      this.username = JSON.parse(data);
+    });
   }
 
    openPage(page) {

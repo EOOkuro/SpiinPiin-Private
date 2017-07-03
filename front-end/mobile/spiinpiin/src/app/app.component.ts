@@ -27,9 +27,9 @@ export class MyApp {
           this.rootPage = MenuPage;
         }else{
           this.loader.dismiss();
-          //this.rootPage = GettingStartedSlidesPage;
+          this.rootPage = GettingStartedSlidesPage;
           //this.rootPage = SpiinpiinPage;
-          this.rootPage = MenuPage;
+          //this.rootPage = MenuPage;
           
         }
       });

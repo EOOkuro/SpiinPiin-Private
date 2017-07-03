@@ -139,11 +139,12 @@ export class SignupPage {
       'dob': new Date()
     };
 
-    this.spiinpiinservice.callPostApi("/users/api/register", data).subscribe((response) => {
+    this.spiinpiinservice.callPostApi("USER_API_ENDPOINT","/users/api/register", data).subscribe((response) => {
       this.loader.dismiss();
       if (response.status == 1) {
         this.spiinpiinservice.saveToLocalStorage("sessionkey", response.data.key);
         this.spiinpiinservice.saveToLocalStorage("name", response.data.name);
+        this.spiinpiinservice.saveToLocalStorage("profilepic", this.auth.photo);
         this.navCtrl.setRoot(MenuPage);
       } else {
         this.spiinpiinservice.toastMessage(response.msg);
@@ -157,14 +158,15 @@ export class SignupPage {
   uploadPicture() {
     let camOptions: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      destinationType:this.camera.DestinationType.DATA_URL,
+      sourceType:this.camera.PictureSourceType.PHOTOLIBRARY,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
     }
     this.camera.getPicture(camOptions).then((imageData) => {
       this.auth.photo = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
-      this.spiinpiinservice.toastMessage(JSON.stringify(err));
+      this.spiinpiinservice.toastMessage(err);
     });
 
   }
