@@ -36,12 +36,21 @@ export class SpiinpiinService {
     return encodeURIComponent(data);
   }
 
-   callPostApi(uri,data) {
+   callPostApi(api,uri,data) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('AuthorizationKey', '');  
+    let mResponse = null;
+    switch(api){
+      case "USER_API_ENDPOINT":
+        mResponse = this.http.post(SpiinpiinConfig.USER_API_ENDPOINT + uri,data,{'headers':headers}).map((response) => response.json());
+        break;
+      case "FEEDS_API_ENDPOINT":
+        mResponse = this.http.post(SpiinpiinConfig.FEEDS_API_ENDPOINT + uri,data,{'headers':headers}).map((response) => response.json());
+        break;
+    }
     
-    return this.http.post(SpiinpiinConfig.API_ENDPOINT + uri,data,{'headers':headers}).map((response) => response.json());
+    return mResponse;
   }
 
    saveToLocalStorage(key,value){

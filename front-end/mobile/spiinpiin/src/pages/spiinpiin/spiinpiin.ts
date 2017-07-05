@@ -94,10 +94,23 @@ export class SpiinpiinPage {
   }
 
   pickImage() {
-
+     let camOptions: CameraOptions = {
+      quality: 100,
+      destinationType:this.camera.DestinationType.DATA_URL,
+      sourceType:this.camera.PictureSourceType.PHOTOLIBRARY,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+    this.camera.getPicture(camOptions).then((imageData) => {
+      this.feed.image = 'data:image/jpeg;base64,' + imageData;
+      this.feed.thumbnail = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+      this.spiinpiinservice.toastMessage(err);
+    });
   }
 
   postData() {
+    
     
   }
 }

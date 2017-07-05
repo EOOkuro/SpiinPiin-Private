@@ -2,9 +2,10 @@
     <ion-content class="menu-background">
         <div class="spacer"></div>
         <div class="logo">
-            <img src="assets/user.png">
+            <img *ngIf="profilepic" src="{{profilepic}}">
+            <img *ngIf="!profilepic" src="assets/user.png">
         </div>
-        <h2 class="appname">John Doe</h2>
+        <h2 class="appname">{{username}}</h2>
         <div class="spacer"></div>
         <ion-list>
             <button ion-item  menuClose>
