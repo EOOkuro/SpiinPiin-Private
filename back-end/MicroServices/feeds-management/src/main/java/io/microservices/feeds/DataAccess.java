@@ -293,6 +293,10 @@ public class DataAccess {
 				!val.trim().equals("") && 
 				!val.trim().equalsIgnoreCase("null");
 	}
+
+	private boolean isValid(Double val){
+		return  val != null;
+	}
 	
 	public JsonObject like(JsonObject obj){
 		logger.info("like :: obj {" + Boolean.toString(obj != null) + "}");
@@ -623,7 +627,7 @@ public class DataAccess {
 		logger.info("removeFeed :: obj {" + Boolean.toString(obj != null) +	"}");
 		
 		JsonObject vresult = this.validateFeedForRemoval(obj);
-		if (vresult.getInteger("status").intValue() > 0){			
+		if (vresult.getInteger("status").intValue() > 0){
 			Bson qry = Filters.and(
 					Filters.eq(Feed.id, new ObjectId(obj.getString(Feed.id))),
 					Filters.eq(Feed.Poster, obj.getString(Feed.Poster)));
@@ -814,10 +818,18 @@ public class DataAccess {
 		if (!this.isValid(obj.getString(Feed.Poster))){
 			missingVals.add(Feed.Poster);
 		}
+
+		if (!this.isValid(obj.getDouble(Feed.Latitude))){
+			missingVals.add(Feed.Latitude);
+		}
+
+		if (!this.isValid((obj.getDouble(Feed.Longitude)))){
+			missingVals.add(Feed.Longitude);
+		}
 				
 		return missingVals.size() > 0 ? 
 				this.createResponse(
-						0, 
+						0,
 						missingVals.encode(), 
 						"Missing required fields") :
 					this.createResponse(1, null, ""); 

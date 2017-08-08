@@ -1,0 +1,67 @@
+/register
+POST
+Headers:
+"Content-Type" : "application/json"
+
+Sample Request:
+{
+    "name": "Manu Lartey",
+    "fedemail": "e.n.a.lartey@gmail.com",
+    "phone": "+233208345060",
+    "id": "655A47RC3A",
+    "provider": "Google",
+    "gender": "male",
+    "email": "elartey@gmail.com",
+    "_id": "69"
+}
+
+Sample Response:
+{
+    "status": 1,
+    "data": {
+        "key": "59838dcf6f5eef26283ae151",
+        "name": "Manu Lartey"
+    },
+    "msg": "Success"
+}
+
+/user
+Sample Request:
+GET 
+Set headers below:
+"key" : "59838dcf6f5eef26283ae151"
+
+Sample Response:
+
+{
+    "status": 1,
+    "data": {
+        "_id": "69",
+        "name": "Manu Lartey",
+        "fedemail": "e.n.a.lartey@gmail.com",
+        "phone": "+233208345060",
+        "id": "655A47RC3A",
+        "provider": "Google",
+        "gender": "male",
+        "email": "elartey@gmail.com"
+    },
+    "msg": "Success"
+}
+
+/signin
+GET
+Set headers
+Set headers below:
+"key" : "59838dcf6f5eef26283ae151"
+"Content-Type" : "application/json"
+
+
+Sample Response:
+{
+    "status": 1,
+    "data": {
+        "key": "59838dcf6f5eef26283ae151",
+        "name": "Manu Lartey"
+    },
+    "msg": "Success"
+}

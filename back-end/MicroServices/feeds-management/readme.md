@@ -1,9 +1,9 @@
 # Feeds management apis
-* The base path would be at http://localhost:8081/feeds/api if the default configurations have not been changed. **Remember to change localhost, port and api path as a propriate if you have made any changes to teh configuration files**
+* The base path would be at http://localhost:8081/feeds/api if the default configurations have not been changed. **Remember to change localhost, port and api path as appropriate if you have made any changes to the configuration files**
 
 ## Objects
 ### Comment object 
-#### Mandatory fileds
+#### Mandatory fields
 	* poster **the user posting**
 	* comment **The comment being posted**
 	* article **Either a comment being commented on id or the feed id**
@@ -15,7 +15,7 @@
 * Other fields can be added on-the-fly based on frontend needs. 
 
 ### Dislike object 
-#### Mandatory fileds
+#### Mandatory fields
 	* poster **the user posting**
 	* flag **True or false. True dislikes, false removes any previous dislike by the user**
 	* article **Either a comment being disliked on id or the feed id**
@@ -24,7 +24,7 @@
 	* posted **The date it was posted**
 
 ### Favourite object 
-#### Mandatory fileds
+#### Mandatory fields
 	* poster **the user posting**
 	* flag **True or false. True favours, false removes any previous favour flags by the user**
 	* article **Either a comment being disliked on id or the feed id**
@@ -33,7 +33,7 @@
 	* posted **The date it was posted**
 
 ### Likes object 
-#### Mandatory fileds
+#### Mandatory fields
 	* poster **the user posting**
 	* flag **True or false. True likes, false removes any previous like flags by the user**
 	* article **Either a comment being disliked on id or the feed id**
@@ -42,13 +42,13 @@
 	* posted **The date it was posted**
 
 ### QueryFilter object 
-#### Mandatory fileds
+#### Mandatory fields
 	* user **the user querying**
 	
 #### Other fields
-	* _id **The id for a feed or comment. Usefull when quering comments on a feed or comments on a comment**
-	* filter **The query parameters to be used to fileter retured values i.e. {longitude: -38.989876554}. All records are returned if no filter is present**
-	* fields ***The prefered fields to be returned. All fields are returned when 'fields' is not specified*
+	* _id **The id for a feed or comment. Useful when querying comments on a feed or comments on a comment**
+	* filter **The query parameters to be used to filter returned values i.e. {longitude: -38.989876554}. All records are returned if no filter is present**
+	* fields ***The preferred fields to be returned. All fields are returned when 'fields' is not specified*
 
 ### TResult object
 	* status **0 (failed), 1 (success), or -1 (special fail i.e. missing values/user)**
@@ -56,7 +56,7 @@
 	* msg **Message passed across for the success or failure**
 
 ### Feed object
-#### Mandatory fileds
+#### Mandatory fields
 	* summary **the feed summary**
 	* article **The details**
 	* poster **The user doing the postings.**

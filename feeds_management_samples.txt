@@ -1,0 +1,73 @@
+/comment
+Headers:
+"Content-Type" : "application/json"
+
+Sample Request:
+{
+	"poster": "Manu Lartey",
+	"comment": "This is happening right now?",
+	"article": "Apple drops price of Macbook",
+	"posted": "2017-08-03",
+	"_id": "1"
+}
+
+Sample Response:
+{
+    "status": 1,
+    "data": null,
+    "msg": "Success"
+}
+
+
+/likes
+Headers:
+"Content-Type" : "application/json"
+
+Sample Request:
+{
+	"poster": "Manu Lartey",
+	"flag": true,
+	"article": "af01",
+	"posted": "2017-08-03"
+}
+
+Samples Response:
+
+{
+    "status": 1,
+    "data": null,
+    "msg": "Success"
+}
+
+/feed
+Headers:
+"Content-Type" : "application/json"
+
+Sample Request:
+{
+	
+	"poster":"Manu Lartey",
+	
+	"summary": "Test Feed",
+	
+	"article": "A post on test feeds.",
+	
+	"image": "",
+	
+	"thumbnail": "",
+	
+	"posted": "2017-08-06"
+
+}
+
+Response:
+{
+    
+	"status": 1,
+    
+	"data": "59873b19bd3b2924909c9b4d",
+    
+	"msg": "Success"
+
+}
+

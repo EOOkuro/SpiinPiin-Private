@@ -18,6 +18,10 @@ public class Feed implements Serializable {
 
 	public static String Thumbnail = "thumbnail";
 		
-	public static String Posted = "posted";		
+	public static String Posted = "posted";
+
+	public static String Latitude = "latitude";
+
+	public static String Longitude = "longitude";
 	
 }
